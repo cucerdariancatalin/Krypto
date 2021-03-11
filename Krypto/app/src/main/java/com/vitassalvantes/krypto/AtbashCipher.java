@@ -15,7 +15,7 @@ public class AtbashCipher {
     /**
      * List of letters of the English alphabet
      */
-    private ArrayList<Character> englishAlphabet = new ArrayList<Character>();
+    final private ArrayList<Character> englishAlphabet = new ArrayList<Character>();
 
     /**
      * Message from user

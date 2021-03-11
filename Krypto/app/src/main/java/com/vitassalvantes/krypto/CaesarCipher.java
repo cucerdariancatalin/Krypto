@@ -24,7 +24,7 @@ public class CaesarCipher {
     /**
      * List of letters of the German alphabet
      */
-    private ArrayList<Character> englishAlphabet = new ArrayList<Character>();
+    final private ArrayList<Character> englishAlphabet = new ArrayList<Character>();
 
     /**
      * A character array containing the processed custom message

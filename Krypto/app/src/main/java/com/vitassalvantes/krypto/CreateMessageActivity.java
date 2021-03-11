@@ -31,6 +31,7 @@ public class CreateMessageActivity extends AppCompatActivity {
     public void onEncryptMessage(View view) {
         final CaesarCipher cc = new CaesarCipher();
         final AtbashCipher ac = new AtbashCipher();
+        final CodeWordCipher cwc = new CodeWordCipher();
         final EditText inputMessage = (EditText) findViewById(R.id.inputMessage);
         final EditText userKey = (EditText) findViewById(R.id.userKey);
         final Intent intent = new Intent(this, ReceiveMessageActivity.class);
@@ -62,6 +63,20 @@ public class CreateMessageActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
+            case "Code word cipher":
+                cwc.setInputMessage(String.valueOf(inputMessage.getText()));
+                try {
+                    cwc.setCodeWord(String.valueOf(userKey.getText()));
+                } catch (Exception e) {
+                    cwc.setCodeWord("");
+                    e.printStackTrace();
+                }
+
+                outputMessage = cwc.encryption();
+                intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE, outputMessage);
+                startActivity(intent);
+                break;
+
             case "Coming soon...":
                 inputMessage.setText(":-)");
                 break;
@@ -72,4 +87,4 @@ public class CreateMessageActivity extends AppCompatActivity {
         }
     }
 }
-//TODO add new cipher and class with statics methods
+//TODO add new cipher and class with statics methods, ICONS !!!

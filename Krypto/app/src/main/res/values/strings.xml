@@ -12,6 +12,7 @@
     <string-array name="choice_of_cipher">
         <item>Caesar cipher</item>
         <item>Atbash cipher</item>
+        <item>Code word cipher</item>
         <item>Coming soon…</item>
     </string-array>
 </resources>
