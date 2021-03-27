@@ -23,7 +23,7 @@ public class AtbashCipher {
     private String inputMessage;
 
     /**
-     * Encrypted message
+     * En- or decrypted message
      */
     private String outputMessage = "";
 

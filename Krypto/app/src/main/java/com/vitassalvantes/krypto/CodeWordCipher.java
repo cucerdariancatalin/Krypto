@@ -6,19 +6,19 @@ import java.util.LinkedList;
  * Class with methods for encrypting messages with code word cipher
  *
  * @author VitasSalvantes
- * @version 2.0
+ * @version 3.0
  */
 public class CodeWordCipher {
 
     /**
      * New alphabet with code word
      */
-    private LinkedList<Character> newAlphabet;
+    private LinkedList<Character> reverseAlphabet;
 
     /**
      * List of letters of the English alphabet
      */
-    final private LinkedList<Character> englishAlphabet = new LinkedList<Character>();
+    final private LinkedList<Character> alphabet = new LinkedList<Character>();
 
     /**
      * Message from user
@@ -26,7 +26,7 @@ public class CodeWordCipher {
     private String inputMessage = "";
 
     /**
-     * Encrypted message
+     * En- or decrypted message
      */
     private String outputMessage = "";
 
@@ -46,11 +46,11 @@ public class CodeWordCipher {
     private char[] codeWordToChars;
 
     /**
-     * Method for creating {@link CodeWordCipher#englishAlphabet}
+     * Method for creating {@link CodeWordCipher#alphabet}
      */
     private void createEnglishAlphabet() {
         for (char letter = 'a'; letter <= 'z'; letter++) {
-            englishAlphabet.add(letter);
+            alphabet.add(letter);
         }
     }
 
@@ -58,11 +58,11 @@ public class CodeWordCipher {
      * Method that creates a new alphabet with a {@link CodeWordCipher#codeWord}
      */
     private void createNewAlphabet() {
-        newAlphabet = new LinkedList<Character>(englishAlphabet);
+        reverseAlphabet = new LinkedList<Character>(alphabet);
         for (char c : codeWordToChars) {
-            if (newAlphabet.contains(c)) {
-                newAlphabet.remove(newAlphabet.indexOf(c)); //TODO
-                newAlphabet.addFirst(c);
+            if (reverseAlphabet.contains(c)) {
+                reverseAlphabet.remove(reverseAlphabet.indexOf(c)); //TODO
+                reverseAlphabet.addFirst(c);
             }
         }
     }
@@ -97,13 +97,37 @@ public class CodeWordCipher {
         createNewAlphabet();
 
         for (char c : messageToChars) {
-            if (englishAlphabet.contains(c)) {
-                outputMessage += newAlphabet.get(englishAlphabet.indexOf(c));
+            if (alphabet.contains(c)) {
+                outputMessage += reverseAlphabet.get(alphabet.indexOf(c));
             } else {
                 outputMessage += c;
             }
         }
+        return outputMessage;
+    }
 
+    /**
+     * Method for decrypting a user message with code word cipher
+     *
+     * @return outputMessage {@link CodeWordCipher#outputMessage}
+     */
+    String decryption() {
+        messageToChars = inputMessage.toCharArray();
+        codeWordToChars = new char[codeWord.length()];
+        for (int i = codeWord.length() - 1; i >= 0; i--) {
+            codeWordToChars[i] = codeWord.charAt(i);
+        }
+
+        createEnglishAlphabet();
+        createNewAlphabet();
+
+        for (char c : messageToChars) {
+            if (reverseAlphabet.contains(c)) {
+                outputMessage += alphabet.get(reverseAlphabet.indexOf(c));
+            } else {
+                outputMessage += c;
+            }
+        }
         return outputMessage;
     }
 }

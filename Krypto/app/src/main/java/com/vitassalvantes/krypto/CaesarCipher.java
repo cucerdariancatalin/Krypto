@@ -17,14 +17,14 @@ public class CaesarCipher {
     private String input;
 
     /**
-     * Encrypted message
+     * En- or decrypted message
      */
     private String outputMessage = "";
 
     /**
      * List of letters of the German alphabet
      */
-    final private ArrayList<Character> englishAlphabet = new ArrayList<Character>();
+    final private ArrayList<Character> alphabet = new ArrayList<Character>();
 
     /**
      * A character array containing the processed custom message
@@ -39,11 +39,11 @@ public class CaesarCipher {
     /**
      * Method for creating letters of the German alphabet
      *
-     * @return deutschAlphabet {@link CaesarCipher#englishAlphabet}
+     * @return deutschAlphabet {@link CaesarCipher#alphabet}
      */
-    private void createDeutschAlphabet() {
+    private void createAlphabet() {
         for (char letter = 'a'; letter <= 'z'; letter++) {
-            englishAlphabet.add(letter);
+            alphabet.add(letter);
         }
     }
 
@@ -90,15 +90,15 @@ public class CaesarCipher {
      * @return outputMessage {@link CaesarCipher#outputMessage}
      */
     String encryption(char[] chars, int key) {
-        createDeutschAlphabet();
+        createAlphabet();
 
         for (char c : chars) {
-            if (englishAlphabet.contains(c)) {
-                if ((englishAlphabet.indexOf(c) + key) > 25) {
-                    outputMessage += englishAlphabet.get(Math.abs(26 - (englishAlphabet.indexOf(c) + key)));
+            if (alphabet.contains(c)) {
+                if ((alphabet.indexOf(c) + key) > 25) {
+                    outputMessage += alphabet.get(Math.abs(26 - (alphabet.indexOf(c) + key)));
                     continue;
                 }
-                outputMessage += englishAlphabet.get(englishAlphabet.indexOf(c) + key);
+                outputMessage += alphabet.get(alphabet.indexOf(c) + key);
 
             } else {
                 outputMessage += c;
@@ -107,4 +107,26 @@ public class CaesarCipher {
         return outputMessage;
     }
 
+    /**
+     * Method for decrypting a user message with Caesar cipher
+     *
+     * @return outputMessage {@link CaesarCipher#outputMessage}
+     */
+    String decryption(char[] chars, int key) {
+        createAlphabet();
+
+        for (char c : chars) {
+            if (alphabet.contains(c)) {
+                if ((alphabet.indexOf(c) - key) < 0) {
+                    outputMessage += alphabet.get(Math.abs(26 - (key - alphabet.indexOf(c))));
+                    continue;
+                }
+                outputMessage += alphabet.get(alphabet.indexOf(c) - key);
+
+            } else {
+                outputMessage += c;
+            }
+        }
+        return outputMessage;
+    }
 }
