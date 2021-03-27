@@ -8,11 +8,14 @@
     <string name="chooser">Senden...</string>
     <string name="userKey">Ihr Schlüssel</string>
     <string name="error">Push mit \"Error\"</string>
+    <string name="language">Language</string>
+    <string name="theme">Thema</string>
+    <string name="help">Hilfe</string>
 
     <string-array name="choice_of_cipher">
         <item>Caesar cipher</item>
         <item>Atbash cipher</item>
         <item>Code word cipher</item>
-        <item>Coming soon…</item>
+        <item>Coming soon...</item>
     </string-array>
 </resources>
