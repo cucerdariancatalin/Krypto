@@ -46,7 +46,7 @@ public class AtbashCipher {
      */
     public void setInputMessage(String inputMessage) {
         this.inputMessage = inputMessage.toLowerCase();
-        chars = inputMessage.toCharArray();
+        chars = this.inputMessage.toCharArray();
     }
 
     /**
