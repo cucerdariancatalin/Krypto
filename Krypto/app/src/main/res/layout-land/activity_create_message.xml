@@ -12,49 +12,52 @@
         android:id="@+id/encrypt"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:onClick="onEncryptMessage"
-        android:text="@string/encrypt"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/inputMessage"
         android:layout_width="370dp"
-        android:layout_height="307dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/input_message"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/choiceOfCipher"
+        android:id="@+id/artOfCipher"
         android:layout_width="175dp"
         android:layout_height="52dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:entries="@array/choice_of_cipher"
-        app:layout_constraintEnd_toStartOf="@+id/encrypt"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toEndOf="@+id/inputMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/userKey"
-        android:layout_width="175dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="56dp"
-        android:ems="10"
-        android:hint="@string/userKey"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/encrypt"
-        app:layout_constraintStart_toEndOf="@+id/inputMessage" />
+    <ToggleButton
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:textOff="@string/decrypt"
+        android:textOn="@string/encrypt"
+        app:layout_constraintBottom_toTopOf="@+id/encrypt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artOfCipher"
+        app:layout_constraintVertical_bias="0.105" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

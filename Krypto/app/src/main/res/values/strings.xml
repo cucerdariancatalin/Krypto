@@ -2,6 +2,7 @@
     <string name="app_name">Krypto</string>
     <string name="input_message">Ihr Text</string>
     <string name="encrypt">Verschlüsseln</string>
+    <string name="decrypt">Entschlüsseln</string>
     <string name="send">Senden</string>
     <string name="receive_message_activity">Result</string>
     <string name="output_message"></string>
@@ -11,6 +12,7 @@
     <string name="language">Language</string>
     <string name="theme">Thema</string>
     <string name="help">Hilfe</string>
+    <string name="next">Weiter</string>
 
     <string-array name="choice_of_cipher">
         <item>Caesar cipher</item>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * Activity to create an encrypted message
  *
  * @author VitasSalvantes
- * @version 6.5
+ * @version 7.0
  */
 public class CreateMessageActivity extends AppCompatActivity {
 
@@ -78,40 +79,28 @@ public class CreateMessageActivity extends AppCompatActivity {
 
     /**
      * A method that accepts user input and generates an intent
-     * for transmitting an encrypted message
+     * for going to activity to enter the key or to get the result
      *
      * @param view
      */
     public void onEncryptMessage(View view) {
         final EditText inputMessage = (EditText) findViewById(R.id.inputMessage);
-        final EditText userKey = (EditText) findViewById(R.id.userKey);
-        final Intent intent = new Intent(this, ReceiveMessageActivity.class);
+        final ToggleButton action = (ToggleButton) findViewById(R.id.action);
         final Spinner aoc = (Spinner) findViewById(R.id.artOfCipher);
         final String cipher = String.valueOf(aoc.getSelectedItem());
         String outputMessage = "";
-
+        Intent intent;
         Toast toast; // For debugging
         CharSequence error = "Error"; // For debugging
 
         switch (cipher) {
             case "Caesar cipher":
-                final CaesarCipher cc = new CaesarCipher();
 
-                cc.setInput(String.valueOf(inputMessage.getText()));
-
-                try {
-                    cc.setKey(Math.abs(Integer.parseInt(String.valueOf(userKey.getText()))));
-                } catch (Exception e) { // For debugging
-                    cc.setKey(0);
-                    error = "Schlüssel?";
-                    toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
-                    toast.show();
-                    e.printStackTrace();
-                    break;
-                }
-
-                outputMessage = cc.encryption(cc.getInput(), cc.getKey());
-                intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE, outputMessage);
+            case "Code word cipher":
+                intent = new Intent(this, KeyInputActivity.class);
+                intent.putExtra(KeyInputActivity.EXTRA_INPUT_MESSAGE, String.valueOf(inputMessage.getText()));
+                intent.putExtra(KeyInputActivity.EXTRA_CIPHER_TYPE, cipher);
+                intent.putExtra(KeyInputActivity.EXTRA_ACTION_TYPE, action.getText());
                 startActivity(intent);
                 break;
 
@@ -121,18 +110,8 @@ public class CreateMessageActivity extends AppCompatActivity {
                 ac.setInputMessage(String.valueOf(inputMessage.getText()));
 
                 outputMessage = ac.encryption();
-                intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE, outputMessage);
-                startActivity(intent);
-                break;
-
-            case "Code word cipher":
-                final CodeWordCipher cwc = new CodeWordCipher();
-
-                cwc.setInputMessage(String.valueOf(inputMessage.getText()));
-                cwc.setCodeWord(String.valueOf(userKey.getText()));
-
-                outputMessage = cwc.encryption();
-                intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE, outputMessage);
+                intent = new Intent(this, ReceiveMessageActivity.class);
+                intent.putExtra(ReceiveMessageActivity.EXTRA_OUTPUT_MESSAGE, outputMessage);
                 startActivity(intent);
                 break;
 

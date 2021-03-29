@@ -12,13 +12,13 @@
         android:id="@+id/encrypt"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="40dp"
         android:onClick="onEncryptMessage"
-        android:text="@string/encrypt"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action" />
 
     <EditText
         android:id="@+id/inputMessage"
@@ -38,22 +38,21 @@
         android:id="@+id/artOfCipher"
         android:layout_width="175dp"
         android:layout_height="52dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
         android:entries="@array/choice_of_cipher"
-        app:layout_constraintBottom_toTopOf="@+id/encrypt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputMessage" />
-
-    <EditText
-        android:id="@+id/userKey"
-        android:layout_width="175dp"
-        android:layout_height="52dp"
-        android:ems="10"
-        android:hint="@string/userKey"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/encrypt"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputMessage" />
+
+    <ToggleButton
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textOff="@string/decrypt"
+        android:textOn="@string/encrypt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artOfCipher" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
