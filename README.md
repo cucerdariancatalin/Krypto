@@ -1,23 +1,67 @@
-## Krypto ##
+# Krypto
+
 With this Android application, you can encrypt your messages with simple ciphers and share them with friends in a way convenient for you.
 
-## Content ##
-- [Current state of development](#Current-state-of-development)
-- [Ciphers](#Ciphers)
-- [Installation](#Installation)
-- [Participation in development](#Participation-in-development)
+[![current version](https://img.shields.io/badge/current_version-1.0-green)](#Krypto)
 
-## Current state of development ##
-The program is under development, but now it allows you to perform most of the functions.
+## Table of content
 
-## Ciphers ##
+- [How does it work](#How-does-it-work)
+- [Screenshots](#Screenshots)
+- [Technologies](#Technologies)
+- [Development progress](#Development-progress)
+- [Project statistics](#Project-statistics)
+- [How to install](#How-to-install)
+- [How to contribute](#How-to-contribute)
+
+## How does it work
+
+Coming soon...
+
+## Screenshots
+
+*All screenshots are relevant for version 1.0*
+
+Coming soon...
+
+## Technologies
+
+- The programming language [Kotlin](https://kotlinlang.org/) ([AdoptOpenJDK version 11.0.10](https://adoptopenjdk.net/)) was chosen for development.
+
+- Development was carried out in [Android Studio](https://developer.android.com/studio/).
+
+- [Figma](https://www.figma.com/) was used to prototype the user interface.
+
+- [WakaTime](https://wakatime.com/) was used to track activity.
+
+- [Microsoft To Do](https://todo.microsoft.com/tasks/) was used to schedule tasks.
+
+## Development progress
+
+Development of the project began on **Mar 10, 2021**.
+
 Currently implemented ciphers:
+
 - [Atbash cipher](https://github.com/VitasSalvantes/Simple-Examples#atbashcipher)
 - [Caesar cipher](https://github.com/VitasSalvantes/Simple-Examples#caesarcipher)
 - [Code word cipher](https://github.com/VitasSalvantes/Simple-Examples#codewordcipher)
 
-## Installation ##
-Unfortunately, you can't yet APK file, because I don't want to scare you with a scary design ahead of time :)
+*Since I am developing this project mainly alone, I see no reason to use [Trello](https://trello.com/).*
 
-## Participation in development ##
-If you want to contribute to the development of the project, please visit the [wiki](https://github.com/VitasSalvantes/Krypto/wiki).
+## Project statistics
+
+[![wakatime](https://wakatime.com/badge/github/VitasSalvantes/Krypto.svg)](https://wakatime.com/badge/github/VitasSalvantes/Krypto)
+
+See more
+on [WakaTime](https://wakatime.com/@VitasSalvantes/projects/xemqmsfaet).
+
+## How to install
+
+1. Download the repository code as a zip archive
+2. Unpack the zip archive
+3. Open the unpacked project with Android Studio
+4. Run the project
+
+## How to contribute
+
+Coming soon...
