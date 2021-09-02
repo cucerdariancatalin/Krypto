@@ -1,5 +1,5 @@
 ## Krypto ##
-With this Android application you can encrypt your messages with simple ciphers and share with friends in a way convenient for you.
+With this Android application, you can encrypt your messages with simple ciphers and share them with friends in a way convenient for you.
 
 ## Content ##
 - [Current state of development](#Current-state-of-development)
@@ -8,7 +8,7 @@ With this Android application you can encrypt your messages with simple ciphers 
 - [Participation in development](#Participation-in-development)
 
 ## Current state of development ##
-The program is under development, but already now it allows you to perform most of the functions.
+The program is under development, but now it allows you to perform most of the functions.
 
 ## Ciphers ##
 Currently implemented ciphers:
@@ -17,7 +17,7 @@ Currently implemented ciphers:
 - [Code word cipher](https://github.com/VitasSalvantes/Simple-Examples#codewordcipher)
 
 ## Installation ##
-Unfortunately, you can't yet apk-file, because i don't want to scare you with a scary design ahead of time :)
+Unfortunately, you can't yet APK file, because I don't want to scare you with a scary design ahead of time :)
 
 ## Participation in development ##
 If you want to contribute to the development of the project, please visit the [wiki](https://github.com/VitasSalvantes/Krypto/wiki).
