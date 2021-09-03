@@ -1,10 +1,10 @@
 # Krypto
 
-With this Android application, you can encrypt your messages with simple ciphers and share them with friends in a way convenient for you.
+Coming soon...
 
 [![current version](https://img.shields.io/badge/current_version-1.0-green)](#Krypto)
 
-## Table of content
+## Table of contents
 
 - [How does it work](#How-does-it-work)
 - [Screenshots](#Screenshots)
