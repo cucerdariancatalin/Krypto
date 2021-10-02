@@ -1,8 +1,5 @@
 package com.vitassalvantes.krypto;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Activity to display an encrypted message and send it
@@ -60,8 +60,8 @@ public class ReceiveMessageActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Toast todo_toast; // TODO Realize in the future
-        CharSequence todo_message; // TODO Realize in the future
+        Toast todo_toast;
+        CharSequence todo_message;
 
         switch (item.getItemId()) {
             case R.id.action_help:

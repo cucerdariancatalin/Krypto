@@ -61,7 +61,7 @@ public class CodeWordCipher {
         reverseAlphabet = new LinkedList<Character>(alphabet);
         for (char c : codeWordToChars) {
             if (reverseAlphabet.contains(c)) {
-                reverseAlphabet.remove(reverseAlphabet.indexOf(c)); //TODO
+                reverseAlphabet.remove(reverseAlphabet.indexOf(c));
                 reverseAlphabet.addFirst(c);
             }
         }

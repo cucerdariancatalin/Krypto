@@ -50,8 +50,8 @@ public class CreateMessageActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Toast todo_toast; // TODO Realize in the future
-        CharSequence todo_message; // TODO Realize in the future
+        Toast todo_toast;
+        CharSequence todo_message;
 
         switch (item.getItemId()) {
             case R.id.action_help:
