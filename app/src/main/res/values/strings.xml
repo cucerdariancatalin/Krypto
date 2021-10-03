@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Krypto</string>
+    <string name="rooms">Rooms</string>
+    <string name="ciphers">Ciphers</string>
 </resources>
