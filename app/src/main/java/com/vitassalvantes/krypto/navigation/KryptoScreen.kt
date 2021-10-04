@@ -8,6 +8,8 @@ import com.vitassalvantes.krypto.R
 
 /**
  * Class for navigation that contains all screens.
+ *
+ * Don't forget add new screens to [KryptoBottomAppBar] and [KryptoNavHost]!
  */
 sealed class KryptoScreen(val route: String, val iconId: ImageVector, val labelId: Int) {
 
