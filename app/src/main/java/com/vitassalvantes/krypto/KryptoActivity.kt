@@ -3,6 +3,7 @@ package com.vitassalvantes.krypto
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -16,10 +17,12 @@ import com.vitassalvantes.krypto.ui.theme.KryptoTheme
  * The entry point to the program.
  */
 class MainActivity : ComponentActivity() {
+    private val viewModel by viewModels<KryptoViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            KryptoApp()
+            KryptoApp(viewModel)
         }
     }
 }
@@ -29,7 +32,7 @@ class MainActivity : ComponentActivity() {
  * and [KryptoNavHost] that controls the display of screens.
  */
 @Composable
-fun KryptoApp() {
+fun KryptoApp(viewModel: KryptoViewModel) {
     KryptoTheme {
         /**
          * The central API for the Navigation component.
@@ -44,7 +47,11 @@ fun KryptoApp() {
             floatingActionButtonPosition = FabPosition.Center,
             isFloatingActionButtonDocked = true
         ) { innerPadding ->
-            KryptoNavHost(navController = navController, innerPadding = innerPadding)
+            KryptoNavHost(
+                navController = navController,
+                viewModel = viewModel,
+                innerPadding = innerPadding
+            )
         }
     }
 }
