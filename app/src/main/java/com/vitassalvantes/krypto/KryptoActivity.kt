@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.vitassalvantes.krypto.navigation.KryptoBottomAppBar
 import com.vitassalvantes.krypto.navigation.KryptoFloatingActionButton
@@ -42,8 +44,12 @@ fun KryptoApp(viewModel: KryptoViewModel) {
         val navController = rememberNavController()
 
         Scaffold(
-            bottomBar = { KryptoBottomAppBar(navController) },
-            floatingActionButton = { KryptoFloatingActionButton() },
+            bottomBar = {
+                KryptoBottomAppBar(
+                    navController = navController
+                )
+            },
+            floatingActionButton = { KryptoFloatingActionButton(navController) },
             floatingActionButtonPosition = FabPosition.Center,
             isFloatingActionButtonDocked = true
         ) { innerPadding ->
