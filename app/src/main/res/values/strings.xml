@@ -3,4 +3,5 @@
     <string name="rooms">Rooms</string>
     <string name="ciphers">Ciphers</string>
     <string name="caesar_cipher_description">Caesar Cipher</string>
+    <string name="creating_a_new_room">Creating a new room</string>
 </resources>
