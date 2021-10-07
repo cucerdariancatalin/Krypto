@@ -12,6 +12,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ui.theme.Shapes
 
 /**
@@ -68,9 +69,26 @@ fun KryptoBottomAppBar(navController: NavHostController) {
  * The floating action button that used with the [KryptoBottomAppBar]
  */
 @Composable
-fun KryptoFloatingActionButton() {
-    FloatingActionButton(onClick = { /*TODO Create a new room*/ }, shape = Shapes.small) {
-        Icon(Icons.Filled.Add, "Create a new room")
+fun KryptoFloatingActionButton(navController: NavHostController) {
+    FloatingActionButton(
+        onClick = {
+            navController.navigate(KryptoScreen.CreatingNewRoom.route) {
+                // Pop up to the start destination of the graph to
+                // avoid building up a large stack of destinations
+                // on the back stack as users select items
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                // Avoid multiple copies of the same destination when
+                // reselecting the same item
+                launchSingleTop = true
+                // Restore state when reselecting a previously selected item
+                restoreState = true
+            }
+        },
+        shape = Shapes.small
+    ) {
+        Icon(Icons.Filled.Add, stringResource(id = R.string.creating_a_new_room))
     }
 }
 
@@ -80,7 +98,7 @@ fun KryptoFloatingActionButton() {
 )
 @Composable
 fun PreviewKryptoBottomAppBar() {
-    KryptoBottomAppBar(navController = rememberNavController())
+    KryptoBottomAppBar(rememberNavController())
 }
 
 @Preview(
@@ -89,5 +107,5 @@ fun PreviewKryptoBottomAppBar() {
 )
 @Composable
 fun PreviewKryptoFloatingActionButton() {
-    KryptoFloatingActionButton()
+    KryptoFloatingActionButton(navController = rememberNavController())
 }
