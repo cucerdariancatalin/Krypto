@@ -1,6 +1,7 @@
 package com.vitassalvantes.krypto.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,5 +22,12 @@ sealed class KryptoScreen(val route: String, val iconId: ImageVector, val labelI
     /**
      * Object for navigation to [com.vitassalvantes.krypto.ui.screens.CiphersScreen].
      */
-    object CiphersScreen : KryptoScreen("ciphers _screen", Icons.Filled.Lock, R.string.ciphers)
+    object CiphersScreen : KryptoScreen("ciphers_screen", Icons.Filled.Lock, R.string.ciphers)
+
+    /**
+     * Object for navigation to [com.vitassalvantes.krypto.ui.screens.CreatingNewRoomScreen].
+     */
+    object CreatingNewRoom : KryptoScreen(
+        "creating_new_room_screen", Icons.Filled.Add, R.string.creating_a_new_room
+    )
 }
