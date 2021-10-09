@@ -30,4 +30,10 @@ sealed class KryptoScreen(val route: String, val iconId: ImageVector, val labelI
     object CreatingNewRoom : KryptoScreen(
         "creating_new_room_screen", Icons.Filled.Add, R.string.creating_a_new_room
     )
+
+    /**
+     * Object for navigation to [com.vitassalvantes.krypto.ui.screens.CipherDetailsScreen].
+     */
+    object CipherDetailsScreen :
+        KryptoScreen("cipher_details_screen", Icons.Filled.Add, R.string.cipher_details_screen)
 }

@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.ui.screens.CipherDetailsScreen
 import com.vitassalvantes.krypto.ui.screens.CiphersScreen
 import com.vitassalvantes.krypto.ui.screens.CreatingNewRoomScreen
 import com.vitassalvantes.krypto.ui.screens.RoomsScreen
@@ -31,11 +32,15 @@ fun KryptoNavHost(
         }
 
         composable(route = KryptoScreen.CiphersScreen.route) {
-            CiphersScreen()
+            CiphersScreen(navController = navController)
         }
 
         composable(route = KryptoScreen.CreatingNewRoom.route) {
             CreatingNewRoomScreen(viewModel = viewModel)
+        }
+
+        composable(route = KryptoScreen.CipherDetailsScreen.route) {
+            CipherDetailsScreen()
         }
     }
 }
