@@ -1,5 +1,6 @@
 package com.vitassalvantes.krypto.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -20,11 +21,12 @@ import androidx.compose.ui.unit.dp
  * [com.vitassalvantes.krypto.ui.screens.RoomsScreen].
  */
 @Composable
-fun KryptoCard(cardName: String, cardIcon: ImageVector) {
+fun KryptoCard(cardName: String, cardIcon: ImageVector, onClickListener: () -> Unit) {
     Card(
         Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(onClick = onClickListener),
         backgroundColor = MaterialTheme.colors.primary
     ) {
         Column(
@@ -46,5 +48,5 @@ fun KryptoCard(cardName: String, cardIcon: ImageVector) {
 )
 @Composable
 fun PreviewKryptoCard() {
-    KryptoCard(cardName = "Example", cardIcon = Icons.Filled.Face)
+    KryptoCard(cardName = "Example", cardIcon = Icons.Filled.Face) {}
 }
