@@ -14,6 +14,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/**
+ * Screen with a description of the selected cipher.
+ */
 @Composable
 fun CipherDetailsScreen(cipherIndex: Int) {
     Column(
