@@ -38,7 +38,7 @@ fun KryptoNavHost(
         }
 
         composable(route = KryptoScreen.CreatingNewRoom.route) {
-            CreatingNewRoomScreen(viewModel = viewModel)
+            CreatingNewRoomScreen(viewModel = viewModel, navController = navController)
         }
 
         composable(
