@@ -29,12 +29,12 @@ fun KryptoBottomAppBar(navController: NavHostController) {
             /**
              * List of [KryptoScreen] screens to display in bottom app bar.
              */
-            val items = listOf(
+            val navigationScreens = listOf(
                 KryptoScreen.RoomsScreen,
                 KryptoScreen.CiphersScreen
             )
 
-            items.forEach { kryptoScreen ->
+            navigationScreens.forEach { kryptoScreen ->
                 BottomNavigationItem(
                     icon = {
                         Icon(
