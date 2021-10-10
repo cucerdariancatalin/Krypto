@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
 
 /**
  * Screen with a description of the selected cipher.
@@ -26,13 +27,13 @@ fun CipherDetailsScreen(cipherIndex: Int) {
             .padding(16.dp)
     ) {
         Text(
-            text = ciphers[cipherIndex].name,
+            text = listOfAllCiphers[cipherIndex].name,
             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(id = ciphers[cipherIndex].description),
+            text = stringResource(id = listOfAllCiphers[cipherIndex].description),
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Justify
         )
