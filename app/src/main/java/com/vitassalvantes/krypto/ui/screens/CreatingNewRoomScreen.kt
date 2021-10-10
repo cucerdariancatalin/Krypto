@@ -12,8 +12,11 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -44,7 +47,7 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel) {
         val namesOfAllCiphers = listOfAllCiphers.map { it.name }
 
         //Radio buttons state
-        val (selectedName, onNameSelected) = remember { mutableStateOf(namesOfAllCiphers[0]) }
+        val (selectedName, onNameSelected) = rememberSaveable { mutableStateOf(namesOfAllCiphers[0]) }
 
         // Column with radio buttons to choose a cipher
         Column(
