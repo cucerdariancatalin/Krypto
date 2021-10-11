@@ -41,16 +41,19 @@ fun KryptoNavHost(
         composable(
             route = KryptoScreen.CipherDetailsScreen.route + "/{cipherIndex}",
             arguments = listOf(
-                navArgument("cipherIndex") { type = NavType.IntType; defaultValue = 0 })
+                navArgument(name = "cipherIndex") { type = NavType.IntType; defaultValue = 0 })
         ) { backStackEntry ->
-            CipherDetailsScreen(backStackEntry.arguments?.getInt("cipherIndex") ?: 0)
+            CipherDetailsScreen(cipherIndex = backStackEntry.arguments?.getInt("cipherIndex") ?: 0)
         }
 
         composable(
             route = KryptoScreen.RoomDetailsScreen.route + "/{roomIndex}", arguments = listOf(
-                navArgument("roomIndex") { type = NavType.IntType; defaultValue = 0 })
+                navArgument(name = "roomIndex") { type = NavType.IntType; defaultValue = 0 })
         ) { backStackEntry ->
-            RoomDetailsScreen(backStackEntry.arguments?.getInt("roomIndex") ?: 0)
+            RoomDetailsScreen(
+                viewModel = viewModel,
+                roomIndex = backStackEntry.arguments?.getInt("roomIndex") ?: 0
+            )
         }
     }
 }
