@@ -1,5 +1,6 @@
 package com.vitassalvantes.krypto.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
@@ -20,19 +21,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import com.vitassalvantes.krypto.KryptoRoom
 import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.ciphers.CaesarCipher
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
+import com.vitassalvantes.krypto.navigation.KryptoScreen
 
 /**
  * Screen to create a custom room
  */
 @Composable
-fun CreatingNewRoomScreen(viewModel: KryptoViewModel) {
+fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -93,7 +100,6 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // TODO: 10.10.2021 if nameOfCipher != Atbash Cipher
         // Key from user for the chose cipher
         var inputKey by rememberSaveable { mutableStateOf("") }
 
@@ -119,13 +125,57 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel) {
                 }
             },
             visualTransformation = if (inputKeyVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = when (selectedName) {
+                CaesarCipher().name -> KeyboardOptions(keyboardType = KeyboardType.NumberPassword)
+                else -> KeyboardOptions(keyboardType = KeyboardType.Password)
+            },
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Context for Toast
+        val context = LocalContext.current
+
         // Button to create the new room and to navigate to this
         Button(
-            onClick = { /*TODO add new room and navigate to this room*/ },
+            onClick = {
+                if (inputNameOfRoom.isNotBlank() && inputKey.isNotBlank()) {
+                    viewModel.addNewRoom(
+                        newRoom = KryptoRoom(
+                            name = inputNameOfRoom,
+                            cipher = listOfAllCiphers.find { it.name == selectedName }!!,
+                            key = inputKey
+                        )
+                    )
+
+                    onNameSelected(namesOfAllCiphers[0])
+                    inputNameOfRoom = ""
+                    inputKey = ""
+
+                    navController.navigate(
+                        KryptoScreen.RoomDetailsScreen.route + "/${
+                            viewModel.listOfRooms.lastIndex
+                        }"
+                    ) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = true
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Input fields are empty!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            },
             Modifier
                 .padding(top = 64.dp)
                 .align(CenterHorizontally)
