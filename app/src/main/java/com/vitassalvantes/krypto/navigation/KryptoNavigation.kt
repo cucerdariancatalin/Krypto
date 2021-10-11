@@ -56,7 +56,7 @@ fun KryptoBottomAppBar(navController: NavHostController) {
                             // reselecting the same item
                             launchSingleTop = true
                             // Restore state when reselecting a previously selected item
-                            restoreState = true
+                            restoreState = false
                         }
                     }
                 )
@@ -83,7 +83,7 @@ fun KryptoFloatingActionButton(navController: NavHostController) {
                 // reselecting the same item
                 launchSingleTop = true
                 // Restore state when reselecting a previously selected item
-                restoreState = true
+                restoreState = false
             }
         },
         shape = Shapes.small
