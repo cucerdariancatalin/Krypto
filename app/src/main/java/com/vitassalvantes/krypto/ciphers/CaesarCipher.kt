@@ -8,15 +8,14 @@ import com.vitassalvantes.krypto.R
 class CaesarCipher(
     name: String = "Caesar Cipher",
     description: Int = R.string.caesar_cipher_description,
-    key: Int = 0,
     icon: ImageVector = Icons.Filled.Edit
-) : KryptoCipher(name = name, description = description, key = key, icon = icon) {
+) : KryptoCipher(name = name, description = description, icon = icon) {
 
-    override fun encrypt(message: String): String {
+    override fun encrypt(message: String, key: String): String {
         TODO("Not yet implemented")
     }
 
-    override fun decrypt(message: String): String {
+    override fun decrypt(message: String, key: String): String {
         TODO("Not yet implemented")
     }
 }
