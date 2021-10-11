@@ -5,4 +5,5 @@
     <string name="caesar_cipher_description">Caesar Cipher</string>
     <string name="creating_a_new_room">Creating a new room</string>
     <string name="cipher_details_screen">Cipher details screen</string>
+    <string name="room_details_screen">Room details screen</string>
 </resources>
