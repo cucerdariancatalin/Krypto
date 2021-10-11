@@ -10,10 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.vitassalvantes.krypto.KryptoViewModel
-import com.vitassalvantes.krypto.ui.screens.CipherDetailsScreen
-import com.vitassalvantes.krypto.ui.screens.CiphersScreen
-import com.vitassalvantes.krypto.ui.screens.CreatingNewRoomScreen
-import com.vitassalvantes.krypto.ui.screens.RoomsScreen
+import com.vitassalvantes.krypto.ui.screens.*
 
 /**
  *  Navigation destination management
@@ -47,6 +44,13 @@ fun KryptoNavHost(
                 navArgument("cipherIndex") { type = NavType.IntType; defaultValue = 0 })
         ) { backStackEntry ->
             CipherDetailsScreen(backStackEntry.arguments?.getInt("cipherIndex") ?: 0)
+        }
+
+        composable(
+            route = KryptoScreen.RoomDetailsScreen.route + "/{roomIndex}", arguments = listOf(
+                navArgument("roomIndex") { type = NavType.IntType; defaultValue = 0 })
+        ) { backStackEntry ->
+            RoomDetailsScreen(backStackEntry.arguments?.getInt("roomIndex") ?: 0)
         }
     }
 }
