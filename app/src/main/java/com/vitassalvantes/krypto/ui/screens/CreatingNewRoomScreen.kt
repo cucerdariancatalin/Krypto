@@ -147,10 +147,6 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                         )
                     )
 
-                    onNameSelected(namesOfAllCiphers[0])
-                    inputNameOfRoom = ""
-                    inputKey = ""
-
                     navController.navigate(
                         KryptoScreen.RoomDetailsScreen.route + "/${
                             viewModel.listOfRooms.lastIndex
@@ -166,7 +162,7 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                         // reselecting the same item
                         launchSingleTop = true
                         // Restore state when reselecting a previously selected item
-                        restoreState = true
+                        restoreState = false
                     }
                 } else {
                     Toast.makeText(
