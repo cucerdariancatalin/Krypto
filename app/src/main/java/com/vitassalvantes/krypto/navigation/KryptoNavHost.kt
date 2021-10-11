@@ -27,7 +27,7 @@ fun KryptoNavHost(
         Modifier.padding(innerPadding)
     ) {
         composable(route = KryptoScreen.RoomsScreen.route) {
-            RoomsScreen(viewModel = viewModel)
+            RoomsScreen(viewModel = viewModel, navController = navController)
         }
 
         composable(route = KryptoScreen.CiphersScreen.route) {
