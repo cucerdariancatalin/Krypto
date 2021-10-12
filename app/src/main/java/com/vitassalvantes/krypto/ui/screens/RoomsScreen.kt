@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 import com.vitassalvantes.krypto.ui.components.KryptoCard
 

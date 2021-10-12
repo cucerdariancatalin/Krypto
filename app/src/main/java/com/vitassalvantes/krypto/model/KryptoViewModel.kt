@@ -1,7 +1,8 @@
-package com.vitassalvantes.krypto
+package com.vitassalvantes.krypto.model
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
+import com.vitassalvantes.krypto.KryptoRoom
 
 /**
  * [KryptoViewModel] holds information about a all rooms and manages it.

@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.vitassalvantes.krypto.KryptoRoom
-import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.ciphers.CaesarCipher
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
 import com.vitassalvantes.krypto.navigation.KryptoScreen

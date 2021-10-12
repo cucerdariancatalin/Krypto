@@ -7,9 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoBottomAppBar
 import com.vitassalvantes.krypto.navigation.KryptoFloatingActionButton
 import com.vitassalvantes.krypto.navigation.KryptoNavHost
