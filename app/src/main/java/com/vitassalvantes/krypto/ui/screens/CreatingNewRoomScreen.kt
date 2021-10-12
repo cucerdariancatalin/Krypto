@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.vitassalvantes.krypto.KryptoRoom
-import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.ciphers.CaesarCipher
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
+import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 
 /**
@@ -138,31 +138,39 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
         // Button to create the new room and to navigate to this
         Button(
             onClick = {
+                // If the input fields are not empty, then the button will work,
+                // else the user will see Toast with tip
                 if (inputNameOfRoom.isNotBlank() && inputKey.isNotBlank()) {
-                    viewModel.addNewRoom(
-                        newRoom = KryptoRoom(
-                            name = inputNameOfRoom,
-                            cipher = listOfAllCiphers.find { it.name == selectedName }!!,
-                            key = inputKey
-                        )
-                    )
 
-                    navController.navigate(
-                        KryptoScreen.RoomDetailsScreen.route + "/${
-                            viewModel.listOfRooms.lastIndex
-                        }"
-                    ) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    // If the room name already exists, the user will see Toast with tip
+                    if (viewModel.listOfRooms.find { it.name == inputNameOfRoom } != null) {
+                        Toast.makeText(context, "This name is used!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.addNewRoom(
+                            newRoom = KryptoRoom(
+                                name = inputNameOfRoom,
+                                cipher = listOfAllCiphers.find { it.name == selectedName }!!,
+                                key = inputKey
+                            )
+                        )
+
+                        navController.navigate(
+                            KryptoScreen.RoomDetailsScreen.route + "/${
+                                viewModel.listOfRooms.lastIndex
+                            }"
+                        ) {
+                            // Pop up to the start destination of the graph to
+                            // avoid building up a large stack of destinations
+                            // on the back stack as users select items
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            // Avoid multiple copies of the same destination when
+                            // reselecting the same item
+                            launchSingleTop = true
+                            // Restore state when reselecting a previously selected item
+                            restoreState = false
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
-                        launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = false
                     }
                 } else {
                     Toast.makeText(
