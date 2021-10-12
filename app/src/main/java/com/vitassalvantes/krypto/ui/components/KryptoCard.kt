@@ -34,7 +34,7 @@ fun KryptoCard(
             .padding(16.dp)
             .pointerInput(Unit) {
                 detectTapGestures(
-                    onPress = { onClickListener() },
+                    onTap = { onClickListener() },
                     onLongPress = { onLongClickListener() }
                 )
             },
