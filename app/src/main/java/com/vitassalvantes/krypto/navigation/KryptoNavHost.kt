@@ -55,5 +55,16 @@ fun KryptoNavHost(
                 roomIndex = backStackEntry.arguments?.getInt("roomIndex") ?: 0
             )
         }
+
+        composable(
+            KryptoScreen.RoomInfoScreen.route + "/{roomIndex}", arguments = listOf(
+                navArgument(name = "roomIndex") { type = NavType.IntType; defaultValue = 0 })
+        ) { backStackEntry ->
+            RoomInfoScreen(
+                viewModel = viewModel,
+                navController = navController,
+                roomIndex = backStackEntry.arguments?.getInt("roomIndex") ?: 0
+            )
+        }
     }
 }
