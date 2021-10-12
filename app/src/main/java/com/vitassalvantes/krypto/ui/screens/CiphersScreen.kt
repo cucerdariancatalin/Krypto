@@ -23,7 +23,7 @@ fun CiphersScreen(navController: NavHostController) {
             .padding(16.dp)
     ) {
         items(listOfAllCiphers) { cipher ->
-            KryptoCard(cardName = cipher.name, cardIcon = cipher.icon) {
+            KryptoCard(cardName = cipher.name, cardIcon = cipher.icon, onClickListener = {
                 navController.navigate(
                     KryptoScreen.CipherDetailsScreen.route + "/${listOfAllCiphers.indexOf(cipher)}"
                 ) {
@@ -33,7 +33,7 @@ fun CiphersScreen(navController: NavHostController) {
                     // Restore state when reselecting a previously selected item
                     restoreState = true
                 }
-            }
+            })
         }
     }
 }
