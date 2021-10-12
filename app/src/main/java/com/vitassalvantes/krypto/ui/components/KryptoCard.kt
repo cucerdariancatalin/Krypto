@@ -1,6 +1,6 @@
 package com.vitassalvantes.krypto.ui.components
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -21,12 +22,22 @@ import androidx.compose.ui.unit.dp
  * [com.vitassalvantes.krypto.ui.screens.RoomsScreen].
  */
 @Composable
-fun KryptoCard(cardName: String, cardIcon: ImageVector, onClickListener: () -> Unit) {
+fun KryptoCard(
+    cardName: String,
+    cardIcon: ImageVector,
+    onClickListener: () -> Unit,
+    onLongClickListener: () -> Unit = {}
+) {
     Card(
         Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable(onClick = onClickListener),
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = { onClickListener() },
+                    onLongPress = { onLongClickListener() }
+                )
+            },
         backgroundColor = MaterialTheme.colors.primary
     ) {
         Column(
@@ -48,5 +59,5 @@ fun KryptoCard(cardName: String, cardIcon: ImageVector, onClickListener: () -> U
 )
 @Composable
 fun PreviewKryptoCard() {
-    KryptoCard(cardName = "Example", cardIcon = Icons.Filled.Face) {}
+    KryptoCard(cardName = "Example", cardIcon = Icons.Filled.Face, onClickListener = {})
 }
