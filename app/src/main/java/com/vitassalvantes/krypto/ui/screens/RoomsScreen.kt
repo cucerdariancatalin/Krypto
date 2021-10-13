@@ -42,7 +42,14 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     if (openDialog) {
         AlertDialog(
             onDismissRequest = { openDialog = !openDialog },
-            title = { Text(text = "Delete room or edit?") },
+            title = { Text(text = "Delete this room?") },
+            text = {
+                Text(
+                    text = "Name: ${viewModel.listOfRooms[pressedRoomIndex].name}\n" +
+                            "Cipher: ${viewModel.listOfRooms[pressedRoomIndex].cipher.name}\n" +
+                            "Key: ${viewModel.listOfRooms[pressedRoomIndex].key}"
+                )
+            },
             buttons = {
                 Row(
                     modifier = Modifier
