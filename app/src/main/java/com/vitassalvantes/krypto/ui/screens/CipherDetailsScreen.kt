@@ -27,7 +27,7 @@ fun CipherDetailsScreen(cipherIndex: Int) {
             .padding(16.dp)
     ) {
         Text(
-            text = listOfAllCiphers[cipherIndex].name,
+            text = stringResource(id = listOfAllCiphers[cipherIndex].name),
             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )

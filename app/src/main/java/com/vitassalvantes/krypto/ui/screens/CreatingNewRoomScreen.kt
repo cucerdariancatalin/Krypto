@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -79,7 +80,7 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                         onClick = null
                     ) // null recommended for accessibility with screenreaders
                     Text(
-                        text = nameOfCipher,
+                        text = stringResource(nameOfCipher),
                         Modifier.padding(start = 4.dp)
                     )
                 }
