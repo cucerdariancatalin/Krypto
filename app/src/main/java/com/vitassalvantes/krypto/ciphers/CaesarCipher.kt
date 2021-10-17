@@ -9,14 +9,11 @@ import com.vitassalvantes.krypto.R
  * Class for encrypting messages using the Caesar cipher
  */
 class CaesarCipher(
-    name: String = "Caesar Cipher",
+    name: Int = R.string.caesar_cipher_name,
     description: Int = R.string.caesar_cipher_description,
     icon: ImageVector = Icons.Filled.Edit
 ) : KryptoCipher(name = name, description = description, icon = icon) {
 
-    /**
-     * This method encrypts a [message] with the help of a [key].
-     */
     override fun encrypt(message: String, key: String): String {
         val keyNumber = keyToInt(key)
 
@@ -26,9 +23,6 @@ class CaesarCipher(
         return message.toCharArray().map { it.plus(keyNumber) }.joinToString(separator = "")
     }
 
-    /**
-     * This method decrypts a [message] with the help of a [key].
-     */
     override fun decrypt(message: String, key: String): String {
         val keyNumber = keyToInt(key)
 
