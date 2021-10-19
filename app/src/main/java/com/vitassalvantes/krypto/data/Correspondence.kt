@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "correspondence")
 data class Correspondence(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
