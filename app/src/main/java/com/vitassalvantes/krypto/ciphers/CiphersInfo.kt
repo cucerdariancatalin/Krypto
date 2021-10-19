@@ -17,10 +17,7 @@ object CiphersInfo {
      * Getting a cipher by its [com.vitassalvantes.krypto.ciphers.KryptoCipher.name]
      */
     fun getCipher(@StringRes cipherName: Int): KryptoCipher {
-        listOfAllCiphers.forEach {
-            if (it.name == cipherName) return it
-        }
+        return listOfAllCiphers.find { it.name == cipherName } ?: listOfAllCiphers[0]
         // TODO: 17.10.2021 throw CipherNotFoundException
-        return listOfAllCiphers[0]
     }
 }
