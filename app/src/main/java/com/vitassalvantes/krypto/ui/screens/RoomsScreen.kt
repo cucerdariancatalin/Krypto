@@ -12,7 +12,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -33,7 +32,7 @@ import com.vitassalvantes.krypto.ui.components.KryptoCard
 @Composable
 fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
 
-    val listOfAllCorrespondences = viewModel.listOfAllCorrespondences.observeAsState(listOf()).value
+    val listOfAllCorrespondences = viewModel.listOfAllCorrespondences.value
 
     // Boolean variable to display the dialog
     var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -47,7 +46,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     // Dialog for editing or deleting the room
     if (openDialog) {
         val pressedCorrespondence =
-            viewModel.findCorrespondenceById(pressedRoomIndex)
+            viewModel.getCorrespondenceById(pressedRoomIndex)
         // All info about selected room
         val cipherInfo = "Name: ${pressedCorrespondence.correspondenceName}\n" +
                 "Cipher: ${stringResource(id = pressedCorrespondence.cipherName)}\n" +

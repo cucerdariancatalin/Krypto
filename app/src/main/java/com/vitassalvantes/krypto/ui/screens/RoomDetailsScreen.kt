@@ -30,7 +30,7 @@ fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
 
     // Current room that is displayed
     val currentCorrespondence =
-        viewModel.findCorrespondenceById(id = roomIndex)
+        viewModel.getCorrespondenceById(id = roomIndex)
     val currentCipher = CiphersInfo.getCipher(currentCorrespondence.cipherName)
 
     Column(
