@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import com.vitassalvantes.krypto.ciphers.CiphersInfo
 import com.vitassalvantes.krypto.model.KryptoViewModel
 
 /**
@@ -28,7 +29,9 @@ import com.vitassalvantes.krypto.model.KryptoViewModel
 fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
 
     // Current room that is displayed
-    val currentRoom = viewModel.listOfRooms[roomIndex]
+    val currentCorrespondence =
+        viewModel.findCorrespondenceById(id = roomIndex)
+    val currentCipher = CiphersInfo.getCipher(currentCorrespondence.cipherName)
 
     Column(
         Modifier
@@ -38,7 +41,7 @@ fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
     ) {
 
         Text(
-            text = currentRoom.name,
+            text = currentCorrespondence.correspondenceName,
             style = MaterialTheme.typography.h4,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
@@ -67,7 +70,7 @@ fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
         // Buttons to decrypt and encrypt the input message
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = {
-                inputMessage = currentRoom.cipher.decrypt(inputMessage, currentRoom.key)
+                inputMessage = currentCipher.decrypt(inputMessage, currentCorrespondence.key)
                 clipboardManager.setText(AnnotatedString(text = inputMessage))
                 Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             }) {
@@ -77,7 +80,7 @@ fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
             Spacer(modifier = Modifier.width(32.dp))
 
             Button(onClick = {
-                inputMessage = currentRoom.cipher.encrypt(inputMessage, currentRoom.key)
+                inputMessage = currentCipher.encrypt(inputMessage, currentCorrespondence.key)
                 clipboardManager.setText(AnnotatedString(text = inputMessage))
                 Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             }) {

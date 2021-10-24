@@ -30,8 +30,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.vitassalvantes.krypto.KryptoRoom
-import com.vitassalvantes.krypto.ciphers.CaesarCipher
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
 import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
@@ -126,10 +124,7 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                 }
             },
             visualTransformation = if (inputKeyVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = when (selectedName) {
-                CaesarCipher().name -> KeyboardOptions(keyboardType = KeyboardType.NumberPassword)
-                else -> KeyboardOptions(keyboardType = KeyboardType.Password)
-            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -144,22 +139,16 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                 if (inputNameOfRoom.isNotBlank() && inputKey.isNotBlank()) {
 
                     // If the room name already exists, the user will see Toast with tip
-                    if (viewModel.listOfRooms.find { it.name == inputNameOfRoom } != null) {
+                    if (viewModel.listOfAllCorrespondences.value!!.find { it.correspondenceName == inputNameOfRoom } != null) { // TODO: 24.10.2021 add validation to the ViewModel
                         Toast.makeText(context, "This name is used!", Toast.LENGTH_SHORT).show()
                     } else {
-                        viewModel.addNewRoom(
-                            newRoom = KryptoRoom(
-                                name = inputNameOfRoom,
-                                cipher = listOfAllCiphers.find { it.name == selectedName }!!,
-                                key = inputKey
-                            )
+                        viewModel.addNewCorrespondence(
+                            correspondenceName = inputNameOfRoom,
+                            cipherName = selectedName,
+                            key = inputKey
                         )
 
-                        navController.navigate(
-                            KryptoScreen.RoomDetailsScreen.route + "/${
-                                viewModel.listOfRooms.lastIndex
-                            }"
-                        ) {
+                        navController.navigate(KryptoScreen.RoomsScreen.route) {
                             // Pop up to the start destination of the graph to
                             // avoid building up a large stack of destinations
                             // on the back stack as users select items

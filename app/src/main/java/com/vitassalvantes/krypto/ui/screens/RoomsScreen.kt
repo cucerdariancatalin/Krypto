@@ -12,14 +12,17 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import com.vitassalvantes.krypto.ciphers.CiphersInfo
 import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 import com.vitassalvantes.krypto.ui.components.KryptoCard
@@ -29,6 +32,9 @@ import com.vitassalvantes.krypto.ui.components.KryptoCard
  */
 @Composable
 fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
+
+    val listOfAllCorrespondences = viewModel.listOfAllCorrespondences.observeAsState(listOf()).value
+
     // Boolean variable to display the dialog
     var openDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -40,10 +46,12 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
 
     // Dialog for editing or deleting the room
     if (openDialog) {
+        val pressedCorrespondence =
+            viewModel.findCorrespondenceById(pressedRoomIndex)
         // All info about selected room
-        val cipherInfo = "Name: ${viewModel.listOfRooms[pressedRoomIndex].name}\n" +
-                "Cipher: ${viewModel.listOfRooms[pressedRoomIndex].cipher.name}\n" +
-                "Key: ${viewModel.listOfRooms[pressedRoomIndex].key}"
+        val cipherInfo = "Name: ${pressedCorrespondence.correspondenceName}\n" +
+                "Cipher: ${stringResource(id = pressedCorrespondence.cipherName)}\n" +
+                "Key: ${pressedCorrespondence.key}"
 
         AlertDialog(
             onDismissRequest = { openDialog = !openDialog },
@@ -64,10 +72,10 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
                         // Remove this room from listOfRooms
                         Toast.makeText(
                             context,
-                            "Removed ${viewModel.listOfRooms[pressedRoomIndex].name}",
+                            "Removed ${pressedCorrespondence.correspondenceName}",
                             Toast.LENGTH_SHORT
                         ).show()
-                        viewModel.removeRoom(viewModel.listOfRooms[pressedRoomIndex])
+                        viewModel.deleteCurrentCorrespondence(pressedCorrespondence)
                         openDialog = !openDialog
                     }) {
                         Text(text = "Remove".uppercase())
@@ -84,18 +92,15 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     }
 
     LazyColumn(Modifier.padding(16.dp)) {
-        items(viewModel.listOfRooms) { room ->
+        items(listOfAllCorrespondences) { correspondence ->
             KryptoCard(
-                cardName = room.name,
-                cardIcon = room.cipher.icon,
+                cardName = correspondence.correspondenceName,
+                cardIcon = CiphersInfo.getCipher(correspondence.cipherName).icon,
                 onClickListener = {
                     navController.navigate(
-                        KryptoScreen.RoomDetailsScreen.route + "/${
-                            viewModel.listOfRooms.indexOf(
-                                room
-                            )
-                        }"
-                    ) {// Pop up to the start destination of the graph to
+                        KryptoScreen.RoomDetailsScreen.route + "/${correspondence.id}"
+                    ) {
+                        // Pop up to the start destination of the graph to
                         // avoid building up a large stack of destinations
                         // on the back stack as users select items
                         popUpTo(navController.graph.findStartDestination().id) {
@@ -112,7 +117,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
                 onLongClickListener = {
                     // Call the dialog
                     openDialog = !openDialog
-                    pressedRoomIndex = viewModel.listOfRooms.indexOf(room)
+                    pressedRoomIndex = correspondence.id
                 }
             )
         }
