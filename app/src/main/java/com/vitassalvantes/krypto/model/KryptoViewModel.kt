@@ -1,11 +1,13 @@
 package com.vitassalvantes.krypto.model
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.vitassalvantes.krypto.data.Correspondence
 import com.vitassalvantes.krypto.data.CorrespondenceDao
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -16,11 +18,21 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
     /**
      * List of all correspondences
      */
-    val listOfAllCorrespondences =
-        correspondenceDao.getAllCorrespondences().asLiveData()
+    val listOfAllCorrespondences: MutableState<List<Correspondence>> = mutableStateOf(listOf())
 
     /**
-     *
+     * Getting the list of all correspondences from the database at the KryptoViewModel creating
+     */
+    init {
+        viewModelScope.launch {
+            correspondenceDao.getAllCorrespondences().collect {
+                listOfAllCorrespondences.value = it
+            }
+        }
+    }
+
+    /**
+     * Launch coroutine to add the new correspondence
      */
     private fun addCorrespondence(correspondence: Correspondence) {
         viewModelScope.launch {
@@ -29,7 +41,7 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
     }
 
     /**
-     *
+     * Launch coroutine to delete the correspondence
      */
     private fun deleteCorrespondence(correspondence: Correspondence) {
         viewModelScope.launch {
@@ -38,7 +50,7 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
     }
 
     /**
-     *
+     * Add correspondence to the database
      */
     fun addNewCorrespondence(
         correspondenceName: String,
@@ -55,21 +67,21 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
     }
 
     /**
-     *
+     * Delete correspondence from the database
      */
     fun deleteCurrentCorrespondence(correspondence: Correspondence) {
         deleteCorrespondence(correspondence = correspondence)
     }
 
     /**
-     *
+     * Get correspondence by id from the [listOfAllCorrespondences]
      */
-    fun findCorrespondenceById(id: Int): Correspondence =
-        listOfAllCorrespondences.value!!.find { it.id == id }!! // TODO: 24.10.2021 exception
+    fun getCorrespondenceById(id: Int): Correspondence =
+        listOfAllCorrespondences.value.find { it.id == id }!! // TODO: 24.10.2021 exception
 }
 
 /**
- *
+ * A factory for the [KryptoViewModel]
  */
 class KryptoViewModelFactory(private val correspondenceDao: CorrespondenceDao) :
     ViewModelProvider.Factory {
