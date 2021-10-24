@@ -16,7 +16,4 @@ interface CorrespondenceDao {
 
     @Query("SELECT * FROM correspondence")
     fun getAllCorrespondences(): Flow<List<Correspondence>>
-
-    @Query("SELECT * FROM correspondence WHERE id = :id")
-    fun getCorrespondence(id: Int): Flow<Correspondence>
 }
