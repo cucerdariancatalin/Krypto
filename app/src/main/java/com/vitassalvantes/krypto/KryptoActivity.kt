@@ -9,6 +9,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.vitassalvantes.krypto.model.KryptoViewModel
+import com.vitassalvantes.krypto.model.KryptoViewModelFactory
 import com.vitassalvantes.krypto.navigation.KryptoBottomAppBar
 import com.vitassalvantes.krypto.navigation.KryptoFloatingActionButton
 import com.vitassalvantes.krypto.navigation.KryptoNavHost
@@ -18,7 +19,11 @@ import com.vitassalvantes.krypto.ui.theme.KryptoTheme
  * The entry point to the program.
  */
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModels<KryptoViewModel>()
+    private val viewModel: KryptoViewModel by viewModels {
+        KryptoViewModelFactory(
+            (this.application as KryptoApplication).database.correspondenceDao()
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
