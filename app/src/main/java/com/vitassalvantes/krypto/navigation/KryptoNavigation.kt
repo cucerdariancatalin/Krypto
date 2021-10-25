@@ -3,6 +3,8 @@ package com.vitassalvantes.krypto.navigation
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
@@ -27,40 +29,62 @@ fun KryptoBottomAppBar(navController: NavHostController) {
             val currentDestination = navBackStackEntry?.destination
 
             /**
-             * List of [KryptoScreen] screens to display in bottom app bar.
+             * Navigate to [com.vitassalvantes.krypto.ui.screens.CorrespondencesScreen]
              */
-            val navigationScreens = listOf(
-                KryptoScreen.RoomsScreen,
-                KryptoScreen.CiphersScreen
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        Icons.Filled.List,
+                        contentDescription = stringResource(id = R.string.rooms)
+                    )
+                },
+                label = { Text(text = stringResource(id = R.string.rooms)) },
+                selected = currentDestination?.hierarchy?.any { it.route == KryptoScreen.CorrespondencesScreen.route } == true,
+                onClick = {
+                    navController.navigate(KryptoScreen.CorrespondencesScreen.route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = false
+                    }
+                }
             )
 
-            navigationScreens.forEach { kryptoScreen ->
-                BottomNavigationItem(
-                    icon = {
-                        Icon(
-                            kryptoScreen.iconId,
-                            contentDescription = stringResource(id = kryptoScreen.labelId)
-                        )
-                    },
-                    label = { Text(text = stringResource(id = kryptoScreen.labelId)) },
-                    selected = currentDestination?.hierarchy?.any { it.route == kryptoScreen.route } == true,
-                    onClick = {
-                        navController.navigate(kryptoScreen.route) {
-                            // Pop up to the start destination of the graph to
-                            // avoid building up a large stack of destinations
-                            // on the back stack as users select items
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            // Avoid multiple copies of the same destination when
-                            // reselecting the same item
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item
-                            restoreState = false
+            /**
+             * Navigate to [com.vitassalvantes.krypto.ui.screens.CiphersScreen]
+             */
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        Icons.Filled.Code,
+                        contentDescription = stringResource(id = R.string.ciphers)
+                    )
+                },
+                label = { Text(text = stringResource(id = R.string.ciphers)) },
+                selected = currentDestination?.hierarchy?.any { it.route == KryptoScreen.CiphersScreen.route } == true,
+                onClick = {
+                    navController.navigate(KryptoScreen.CiphersScreen.route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
                         }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = false
                     }
-                )
-            }
+                }
+            )
         }
     }
 }
@@ -72,7 +96,7 @@ fun KryptoBottomAppBar(navController: NavHostController) {
 fun KryptoFloatingActionButton(navController: NavHostController) {
     FloatingActionButton(
         onClick = {
-            navController.navigate(KryptoScreen.CreatingNewRoom.route) {
+            navController.navigate(KryptoScreen.CreatingNewCorrespondence.route) {
                 // Pop up to the start destination of the graph to
                 // avoid building up a large stack of destinations
                 // on the back stack as users select items
