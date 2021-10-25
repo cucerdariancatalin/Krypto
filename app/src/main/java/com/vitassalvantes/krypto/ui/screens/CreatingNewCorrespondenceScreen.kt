@@ -35,10 +35,10 @@ import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 
 /**
- * Screen to create a custom room
+ * Screen to create a custom correspondence
  */
 @Composable
-fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostController) {
+fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -85,14 +85,14 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
             }
         }
 
-        // Name of the new room from user
-        var inputNameOfRoom by rememberSaveable { mutableStateOf("") }
+        // Name of the new correspondence from user
+        var inputCorrespondenceName by rememberSaveable { mutableStateOf("") }
 
-        // Input field to set a name of the new room
+        // Input field to set a name of the new correspondence
         OutlinedTextField(
-            value = inputNameOfRoom,
-            onValueChange = { inputNameOfRoom = it },
-            label = { Text("Name of Room") },
+            value = inputCorrespondenceName,
+            onValueChange = { inputCorrespondenceName = it },
+            label = { Text("Name of Correspondence") },
             leadingIcon = { Icon(Icons.Default.Edit, contentDescription = "Icon Label") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -131,24 +131,24 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
         // Context for Toast
         val context = LocalContext.current
 
-        // Button to create the new room and to navigate to this
+        // Button to create the new correspondence and to navigate to this
         Button(
             onClick = {
                 // If the input fields are not empty, then the button will work,
                 // else the user will see Toast with tip
-                if (inputNameOfRoom.isNotBlank() && inputKey.isNotBlank()) {
+                if (inputCorrespondenceName.isNotBlank() && inputKey.isNotBlank()) {
 
-                    // If the room name already exists, the user will see Toast with tip
-                    if (viewModel.listOfAllCorrespondences.value!!.find { it.correspondenceName == inputNameOfRoom } != null) { // TODO: 24.10.2021 add validation to the ViewModel
+                    // If the correspondence name already exists, the user will see Toast with tip
+                    if (viewModel.listOfAllCorrespondences.value!!.find { it.correspondenceName == inputCorrespondenceName } != null) { // TODO: 24.10.2021 add validation to the ViewModel
                         Toast.makeText(context, "This name is used!", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.addNewCorrespondence(
-                            correspondenceName = inputNameOfRoom,
+                            correspondenceName = inputCorrespondenceName,
                             cipherName = selectedName,
                             key = inputKey
                         )
 
-                        navController.navigate(KryptoScreen.RoomsScreen.route) {
+                        navController.navigate(KryptoScreen.CorrespondencesScreen.route) {
                             // Pop up to the start destination of the graph to
                             // avoid building up a large stack of destinations
                             // on the back stack as users select items
@@ -174,7 +174,7 @@ fun CreatingNewRoomScreen(viewModel: KryptoViewModel, navController: NavHostCont
                 .padding(top = 64.dp)
                 .align(CenterHorizontally)
         ) {
-            Text(text = "CREATE ${inputNameOfRoom.uppercase()}")
+            Text(text = "CREATE ${inputCorrespondenceName.uppercase()}")
         }
     }
 }

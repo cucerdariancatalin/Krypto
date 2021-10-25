@@ -27,26 +27,26 @@ import com.vitassalvantes.krypto.navigation.KryptoScreen
 import com.vitassalvantes.krypto.ui.components.KryptoCard
 
 /**
- * Screen with a list of created rooms.
+ * Screen with a list of created correspondences.
  */
 @Composable
-fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
+fun CorrespondencesScreen(viewModel: KryptoViewModel, navController: NavHostController) {
 
     val listOfAllCorrespondences = viewModel.listOfAllCorrespondences.value
 
     // Boolean variable to display the dialog
     var openDialog by rememberSaveable { mutableStateOf(false) }
 
-    // Index of long pressed room for dialog
-    var pressedRoomIndex by rememberSaveable { mutableStateOf(0) }
+    // Index of long pressed correspondence for dialog
+    var pressedCorrespondenceId by rememberSaveable { mutableStateOf(0) }
 
     // Context for Toast
     val context = LocalContext.current
 
-    // Dialog for editing or deleting the room
+    // Dialog for editing or deleting the correspondence
     if (openDialog) {
         val pressedCorrespondence =
-            viewModel.getCorrespondenceById(pressedRoomIndex)
+            viewModel.getCorrespondenceById(pressedCorrespondenceId)
         // All info about selected room
         val cipherInfo = "Name: ${pressedCorrespondence.correspondenceName}\n" +
                 "Cipher: ${stringResource(id = pressedCorrespondence.cipherName)}\n" +
@@ -54,7 +54,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
 
         AlertDialog(
             onDismissRequest = { openDialog = !openDialog },
-            title = { Text(text = "Delete this room?") },
+            title = { Text(text = "Delete this correspondence?") },
             text = {
                 Text(
                     text = cipherInfo
@@ -68,7 +68,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = {
-                        // Remove this room from listOfRooms
+                        // Remove pressed correspondence
                         Toast.makeText(
                             context,
                             "Removed ${pressedCorrespondence.correspondenceName}",
@@ -97,7 +97,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
                 cardIcon = CiphersInfo.getCipher(correspondence.cipherName).icon,
                 onClickListener = {
                     navController.navigate(
-                        KryptoScreen.RoomDetailsScreen.route + "/${correspondence.id}"
+                        KryptoScreen.CorrespondenceDetailsScreen.route + "/${correspondence.id}"
                     ) {
                         // Pop up to the start destination of the graph to
                         // avoid building up a large stack of destinations
@@ -116,7 +116,7 @@ fun RoomsScreen(viewModel: KryptoViewModel, navController: NavHostController) {
                 onLongClickListener = {
                     // Call the dialog
                     openDialog = !openDialog
-                    pressedRoomIndex = correspondence.id
+                    pressedCorrespondenceId = correspondence.id
                 }
             )
         }

@@ -23,19 +23,19 @@ fun KryptoNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = KryptoScreen.RoomsScreen.route,
+        startDestination = KryptoScreen.CorrespondencesScreen.route,
         Modifier.padding(innerPadding)
     ) {
-        composable(route = KryptoScreen.RoomsScreen.route) {
-            RoomsScreen(viewModel = viewModel, navController = navController)
+        composable(route = KryptoScreen.CorrespondencesScreen.route) {
+            CorrespondencesScreen(viewModel = viewModel, navController = navController)
         }
 
         composable(route = KryptoScreen.CiphersScreen.route) {
             CiphersScreen(navController = navController)
         }
 
-        composable(route = KryptoScreen.CreatingNewRoom.route) {
-            CreatingNewRoomScreen(viewModel = viewModel, navController = navController)
+        composable(route = KryptoScreen.CreatingNewCorrespondence.route) {
+            CreatingNewCorrespondenceScreen(viewModel = viewModel, navController = navController)
         }
 
         composable(
@@ -47,12 +47,12 @@ fun KryptoNavHost(
         }
 
         composable(
-            route = KryptoScreen.RoomDetailsScreen.route + "/{roomIndex}", arguments = listOf(
+            route = KryptoScreen.CorrespondenceDetailsScreen.route + "/{roomIndex}", arguments = listOf(
                 navArgument(name = "roomIndex") { type = NavType.IntType; defaultValue = 0 })
         ) { backStackEntry ->
-            RoomDetailsScreen(
+            CorrespondenceDetailsScreen(
                 viewModel = viewModel,
-                roomIndex = backStackEntry.arguments?.getInt("roomIndex") ?: 0
+                correspondenceId = backStackEntry.arguments?.getInt("roomIndex") ?: 0
             )
         }
     }

@@ -26,11 +26,11 @@ import com.vitassalvantes.krypto.model.KryptoViewModel
  * Screen to en- or decrypt message
  */
 @Composable
-fun RoomDetailsScreen(viewModel: KryptoViewModel, roomIndex: Int) {
+fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: Int) {
 
-    // Current room that is displayed
+    // Current correspondence that is displayed
     val currentCorrespondence =
-        viewModel.getCorrespondenceById(id = roomIndex)
+        viewModel.getCorrespondenceById(id = correspondenceId)
     val currentCipher = CiphersInfo.getCipher(currentCorrespondence.cipherName)
 
     Column(

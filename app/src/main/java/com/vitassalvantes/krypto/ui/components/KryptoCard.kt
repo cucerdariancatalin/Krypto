@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Card that consists of an icon and a name. Used as an item in the LazyColumn
  * for [com.vitassalvantes.krypto.ui.screens.CiphersScreen] and
- * [com.vitassalvantes.krypto.ui.screens.RoomsScreen].
+ * [com.vitassalvantes.krypto.ui.screens.CorrespondencesScreen].
  */
 @Composable
 fun KryptoCard(
