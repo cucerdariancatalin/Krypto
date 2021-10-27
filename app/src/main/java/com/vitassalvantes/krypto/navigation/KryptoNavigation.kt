@@ -35,10 +35,10 @@ fun KryptoBottomAppBar(navController: NavHostController) {
                 icon = {
                     Icon(
                         Icons.Filled.List,
-                        contentDescription = stringResource(id = R.string.rooms)
+                        contentDescription = stringResource(id = R.string.correspondences)
                     )
                 },
-                label = { Text(text = stringResource(id = R.string.rooms)) },
+                label = { Text(text = stringResource(id = R.string.correspondences)) },
                 selected = currentDestination?.hierarchy?.any { it.route == KryptoScreen.CorrespondencesScreen.route } == true,
                 onClick = {
                     navController.navigate(KryptoScreen.CorrespondencesScreen.route) {
