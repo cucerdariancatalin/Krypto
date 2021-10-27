@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Krypto</string>
-    <string name="rooms">Rooms</string>
     <string name="ciphers">Ciphers</string>
     <string name="creating_a_new_room">Creating a new room</string>
     <string name="cipher_details_screen">Cipher details screen</string>
-    <string name="room_details_screen">Room details screen</string>
     <string name="send_message">Send message</string>
+    <string name="delete_this_correspondence">Delete this correspondence?</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="correspondence_info">Name: %1$s\nCipher: %2$s\nKey: %3$s</string>
+    <string name="deleted_correspondence">Deleted %1$s</string>
+    <string name="correspondences">Correspondences</string>
 </resources>
