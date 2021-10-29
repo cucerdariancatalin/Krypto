@@ -17,10 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ciphers.CiphersInfo
-import com.vitassalvantes.krypto.model.KryptoViewModel
+import com.vitassalvantes.krypto.ciphers.KryptoCipher
+import com.vitassalvantes.krypto.data.Correspondence
 
 /**
  * Screen to en- or decrypt message
@@ -28,11 +33,28 @@ import com.vitassalvantes.krypto.model.KryptoViewModel
 @Composable
 fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: Int) {
 
-    // Current correspondence that is displayed
     val currentCorrespondence =
         viewModel.getCorrespondenceById(id = correspondenceId)
     val currentCipher = CiphersInfo.getCipher(currentCorrespondence.cipherName)
 
+    CorrespondenceDetailsScreenContent(
+        currentCorrespondence = currentCorrespondence,
+        currentCipher = currentCipher
+    )
+
+}
+
+/**
+ * UI content of the [CorrespondenceDetailsScreen].
+ *
+ * @param currentCorrespondence selected on the [CorrespondencesScreen] correspondence.
+ * @param currentCipher current cipher to en- and decrypt messages.
+ */
+@Composable
+fun CorrespondenceDetailsScreenContent(
+    currentCorrespondence: Correspondence,
+    currentCipher: KryptoCipher
+) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -55,7 +77,7 @@ fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: In
         OutlinedTextField(
             value = inputMessage,
             onValueChange = { inputMessage = it },
-            label = { Text(text = "Message") },
+            label = { Text(text = stringResource(R.string.message)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -67,14 +89,21 @@ fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: In
         // Clipboard manager to copy the message to the clipboard
         val clipboardManager = LocalClipboardManager.current
 
+        // The Toast "Copied to clipboard"
+        val toast = Toast.makeText(
+            context,
+            context.getString(R.string.copied_to_clipboard),
+            Toast.LENGTH_SHORT
+        )
+
         // Buttons to decrypt and encrypt the input message
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = {
                 inputMessage = currentCipher.decrypt(inputMessage, currentCorrespondence.key)
                 clipboardManager.setText(AnnotatedString(text = inputMessage))
-                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                toast.show()
             }) {
-                Text(text = "Decryption")
+                Text(text = stringResource(R.string.decryption))
             }
 
             Spacer(modifier = Modifier.width(32.dp))
@@ -82,10 +111,27 @@ fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: In
             Button(onClick = {
                 inputMessage = currentCipher.encrypt(inputMessage, currentCorrespondence.key)
                 clipboardManager.setText(AnnotatedString(text = inputMessage))
-                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                toast.show()
             }) {
-                Text(text = "Encryption")
+                Text(text = stringResource(R.string.encryption))
             }
         }
     }
+}
+
+@Preview(
+    name = "CorrespondenceDetailsScreen",
+    showSystemUi = true
+)
+@Composable
+fun PreviewCorrespondenceDetailsScreen() {
+    val testCorrespondence = Correspondence(
+        correspondenceName = "TestCorrespondence",
+        cipherName = R.string.caesar_cipher_name,
+        key = "TestCorrespondence"
+    )
+
+    val testCipher = CiphersInfo.listOfAllCiphers[0]
+
+    CorrespondenceDetailsScreenContent(currentCorrespondence = testCorrespondence, testCipher)
 }
