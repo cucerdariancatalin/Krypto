@@ -14,12 +14,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
+import com.vitassalvantes.krypto.ciphers.KryptoCipher
 
 /**
  * Screen with a description of the selected cipher.
  */
 @Composable
 fun CipherDetailsScreen(cipherIndex: Int) {
+    val currentCipher = listOfAllCiphers[cipherIndex]
+
+    CipherDetailsScreenContent(currentCipher = currentCipher)
+}
+
+/**
+ * UI content of the [CreatingNewCorrespondenceScreen].
+ *
+ * @param currentCipher selected on [CiphersScreen] cipher.
+ */
+@Composable
+fun CipherDetailsScreenContent(currentCipher: KryptoCipher) {
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -27,13 +40,13 @@ fun CipherDetailsScreen(cipherIndex: Int) {
             .padding(16.dp)
     ) {
         Text(
-            text = stringResource(id = listOfAllCiphers[cipherIndex].name),
+            text = stringResource(id = currentCipher.name),
             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(id = listOfAllCiphers[cipherIndex].description),
+            text = stringResource(id = currentCipher.description),
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Justify
         )
