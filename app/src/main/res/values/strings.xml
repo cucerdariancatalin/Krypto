@@ -10,4 +10,7 @@
     <string name="correspondence_info">Name: %1$s\nCipher: %2$s\nKey: %3$s</string>
     <string name="deleted_correspondence">Deleted %1$s</string>
     <string name="correspondences">Correspondences</string>
+    <string name="input_fields_are_empty">Input fields are empty!</string>
+    <string name="this_name_is_used">This name is used!</string>
+    <string name="cipher">Cipher</string>
 </resources>
