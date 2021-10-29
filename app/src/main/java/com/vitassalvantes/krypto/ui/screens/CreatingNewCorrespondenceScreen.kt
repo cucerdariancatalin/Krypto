@@ -32,7 +32,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
-import com.vitassalvantes.krypto.model.KryptoViewModel
+import com.vitassalvantes.krypto.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 
 /**

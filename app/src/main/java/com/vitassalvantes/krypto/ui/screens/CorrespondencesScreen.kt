@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ciphers.CiphersInfo
 import com.vitassalvantes.krypto.data.Correspondence
-import com.vitassalvantes.krypto.model.KryptoViewModel
+import com.vitassalvantes.krypto.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 import com.vitassalvantes.krypto.ui.components.KryptoCard
 import com.vitassalvantes.krypto.ui.components.KryptoDialog
