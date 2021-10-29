@@ -1,6 +1,5 @@
 package com.vitassalvantes.krypto.ui.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
@@ -27,9 +26,11 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
 import com.vitassalvantes.krypto.model.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
@@ -39,21 +40,66 @@ import com.vitassalvantes.krypto.navigation.KryptoScreen
  */
 @Composable
 fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: NavHostController) {
+    // List with names of all ciphers
+    val namesOfAllCiphers = listOfAllCiphers.map { it.name }
+
+    // Context for Toast
+    val context = LocalContext.current
+
+    CreatingNewCorrespondenceScreenContent(
+        namesOfAllCiphers = namesOfAllCiphers,
+        onCreateButtonClick = { inputCorrespondenceName, inputKey, selectedCipherName ->
+            if (viewModel.createNewCorrespondence(
+                    correspondenceName = inputCorrespondenceName,
+                    cipherName = selectedCipherName,
+                    key = inputKey,
+                    context = context
+                )
+            ) {
+                // Navigate to CorrespondencesScreen
+                navController.navigate(KryptoScreen.CorrespondencesScreen.route) {
+                    // Pop up to the start destination of the graph to
+                    // avoid building up a large stack of destinations
+                    // on the back stack as users select items
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    // Avoid multiple copies of the same destination when
+                    // reselecting the same item
+                    launchSingleTop = true
+                    // Restore state when reselecting a previously selected item
+                    restoreState = false
+                }
+            }
+        }
+    )
+}
+
+/**
+ * UI content of the [CreatingNewCorrespondenceScreen].
+ *
+ * @param namesOfAllCiphers list of names of all ciphers.
+ * @param onCreateButtonClick create new custom correspondence.
+ */
+@Composable
+fun CreatingNewCorrespondenceScreenContent(
+    namesOfAllCiphers: List<Int>,
+    onCreateButtonClick: (inputCorrespondenceName: String, inputKey: String, selectedCipherName: Int) -> Unit
+) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Text(text = "Cipher", style = MaterialTheme.typography.h5)
-
-        /**
-         * List with names of all ciphers from [listOfAllCiphers]
-         */
-        val namesOfAllCiphers = listOfAllCiphers.map { it.name }
+        Text(text = stringResource(R.string.cipher), style = MaterialTheme.typography.h5)
 
         //Radio buttons state
-        val (selectedName, onNameSelected) = rememberSaveable { mutableStateOf(namesOfAllCiphers[0]) }
+        val (selectedCipherName, onCipherNameSelected) = rememberSaveable {
+            mutableStateOf(
+                namesOfAllCiphers[0]
+            )
+        }
 
         // Column with radio buttons to choose a cipher
         Column(
@@ -66,15 +112,15 @@ fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: N
                     Modifier
                         .fillMaxWidth()
                         .selectable(
-                            selected = (nameOfCipher == selectedName),
-                            onClick = { onNameSelected(nameOfCipher) },
+                            selected = (nameOfCipher == selectedCipherName),
+                            onClick = { onCipherNameSelected(nameOfCipher) },
                             role = Role.RadioButton
                         )
                         .padding(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (nameOfCipher == selectedName),
+                        selected = (nameOfCipher == selectedCipherName),
                         onClick = null
                     ) // null recommended for accessibility with screenreaders
                     Text(
@@ -128,47 +174,14 @@ fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: N
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Context for Toast
-        val context = LocalContext.current
-
         // Button to create the new correspondence and to navigate to this
         Button(
             onClick = {
-                // If the input fields are not empty, then the button will work,
-                // else the user will see Toast with tip
-                if (inputCorrespondenceName.isNotBlank() && inputKey.isNotBlank()) {
-
-                    // If the correspondence name already exists, the user will see Toast with tip
-                    if (viewModel.listOfAllCorrespondences.value!!.find { it.correspondenceName == inputCorrespondenceName } != null) { // TODO: 24.10.2021 add validation to the ViewModel
-                        Toast.makeText(context, "This name is used!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        viewModel.addNewCorrespondence(
-                            correspondenceName = inputCorrespondenceName,
-                            cipherName = selectedName,
-                            key = inputKey
-                        )
-
-                        navController.navigate(KryptoScreen.CorrespondencesScreen.route) {
-                            // Pop up to the start destination of the graph to
-                            // avoid building up a large stack of destinations
-                            // on the back stack as users select items
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            // Avoid multiple copies of the same destination when
-                            // reselecting the same item
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item
-                            restoreState = false
-                        }
-                    }
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Input fields are empty!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                onCreateButtonClick(
+                    inputCorrespondenceName,
+                    inputKey,
+                    selectedCipherName
+                )
             },
             Modifier
                 .padding(top = 64.dp)
@@ -177,4 +190,17 @@ fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: N
             Text(text = "CREATE ${inputCorrespondenceName.uppercase()}")
         }
     }
+}
+
+@Preview(
+    name = "CreatingNewCorrespondence",
+    showSystemUi = true
+)
+@Composable
+fun PreviewCreatingNewCorrespondenceScreen() {
+    val namesOfAllCiphers = listOfAllCiphers.map { it.name }
+    CreatingNewCorrespondenceScreenContent(
+        namesOfAllCiphers = namesOfAllCiphers,
+        onCreateButtonClick = { _, _, _ -> }
+    )
 }
