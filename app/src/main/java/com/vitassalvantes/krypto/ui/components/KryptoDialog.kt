@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
  * @param text the text which contains info about the interaction.
  * @param acceptButtonText the text of the accept button.
  * @param declineButtonText the text of the decline button.
- * @param onAcceptButtonClickListener the action by clicking the accept button.
- * @param onDeclineButtonClickListener the action by clicking the decline button.
+ * @param onAcceptButtonClick the action by clicking the accept button.
+ * @param onDeclineButtonClick the action by clicking the decline button.
  * @param onDismissRequest the action by clicking outside or pressing the back button.
  */
 @Composable
@@ -28,8 +28,8 @@ fun KryptoDialog(
     text: String = "",
     acceptButtonText: String,
     declineButtonText: String,
-    onAcceptButtonClickListener: () -> Unit,
-    onDeclineButtonClickListener: () -> Unit,
+    onAcceptButtonClick: () -> Unit,
+    onDeclineButtonClick: () -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -44,12 +44,12 @@ fun KryptoDialog(
                 horizontalArrangement = Arrangement.End
             ) {
                 // The accept button
-                TextButton(onClick = { onAcceptButtonClickListener() }) {
+                TextButton(onClick = { onAcceptButtonClick() }) {
                     Text(text = acceptButtonText)
                 }
 
                 // The decline button
-                TextButton(onClick = { onDeclineButtonClickListener() }) {
+                TextButton(onClick = { onDeclineButtonClick() }) {
                     Text(text = declineButtonText)
                 }
             }

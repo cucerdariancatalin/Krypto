@@ -37,10 +37,10 @@ fun CiphersScreen(navController: NavHostController) {
 /**
  * UI content of the [CiphersScreen].
  *
- * @param onCardClickListener navigation to the [CipherDetailsScreen].
+ * @param onCardClick navigation to the [CipherDetailsScreen].
  */
 @Composable
-fun CiphersScreenContent(onCardClickListener: (KryptoCipher) -> Unit) {
+fun CiphersScreenContent(onCardClick: (KryptoCipher) -> Unit) {
     LazyColumn(
         Modifier
             .fillMaxWidth()
@@ -51,7 +51,7 @@ fun CiphersScreenContent(onCardClickListener: (KryptoCipher) -> Unit) {
                 cardName = stringResource(id = cipher.name),
                 cardIcon = cipher.icon,
                 onClickListener = {
-                    onCardClickListener(cipher)
+                    onCardClick(cipher)
                 }
             )
         }

@@ -35,7 +35,7 @@ fun CorrespondencesScreen(viewModel: KryptoViewModel, navController: NavHostCont
 
     CorrespondencesScreenContent(
         listOfAllCorrespondences = listOfAllCorrespondences,
-        onCardClickListener = { correspondence ->
+        onCardClick = { correspondence ->
             navController.navigate(
                 KryptoScreen.CorrespondenceDetailsScreen.route + "/${correspondence.id}"
             ) {
@@ -66,14 +66,14 @@ fun CorrespondencesScreen(viewModel: KryptoViewModel, navController: NavHostCont
  * UI content of the [CorrespondencesScreen].
  *
  * @param listOfAllCorrespondences list of all correspondences from the database.
- * @param onCardClickListener navigation to [CorrespondenceDetailsScreen].
+ * @param onCardClick navigation to [CorrespondenceDetailsScreen].
  * @param getPressedCorrespondence get pressed correspondence by id.
  * @param deletePressedCorrespondence delete pressed correspondence.
  */
 @Composable
 fun CorrespondencesScreenContent(
     listOfAllCorrespondences: List<Correspondence>,
-    onCardClickListener: (Correspondence) -> Unit,
+    onCardClick: (Correspondence) -> Unit,
     getPressedCorrespondence: (Int) -> Correspondence,
     deletePressedCorrespondence: (Correspondence) -> Unit
 ) {
@@ -107,7 +107,7 @@ fun CorrespondencesScreenContent(
             text = correspondenceInfo,
             acceptButtonText = stringResource(R.string.remove).uppercase(),
             declineButtonText = stringResource(R.string.cancel).uppercase(),
-            onAcceptButtonClickListener = {
+            onAcceptButtonClick = {
                 // Remove pressed correspondence
                 Toast.makeText(
                     context,
@@ -117,7 +117,7 @@ fun CorrespondencesScreenContent(
                 deletePressedCorrespondence(pressedCorrespondence)
                 openDialog = !openDialog
             },
-            onDeclineButtonClickListener = {
+            onDeclineButtonClick = {
                 // Cancel deleting
                 openDialog = !openDialog
             },
@@ -130,7 +130,7 @@ fun CorrespondencesScreenContent(
             KryptoCard(
                 cardName = correspondence.correspondenceName,
                 cardIcon = CiphersInfo.getCipher(correspondence.cipherName).icon,
-                onClickListener = { onCardClickListener(correspondence) },
+                onClickListener = { onCardClick(correspondence) },
                 onLongClickListener = {
                     // Call the dialog
                     openDialog = !openDialog
@@ -159,7 +159,7 @@ fun PreviewCorrespondencesScreen() {
             testCorrespondence,
             testCorrespondence
         )),
-        onCardClickListener = {},
+        onCardClick = {},
         getPressedCorrespondence = { testCorrespondence },
         deletePressedCorrespondence = {}
     )
