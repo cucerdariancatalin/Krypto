@@ -1,4 +1,4 @@
-package com.vitassalvantes.krypto.model
+package com.vitassalvantes.krypto
 
 import android.content.Context
 import android.widget.Toast
@@ -8,7 +8,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.data.Correspondence
 import com.vitassalvantes.krypto.data.CorrespondenceDao
 import kotlinx.coroutines.flow.collect
