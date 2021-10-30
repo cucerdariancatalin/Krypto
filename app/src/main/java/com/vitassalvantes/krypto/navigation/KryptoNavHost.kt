@@ -47,12 +47,12 @@ fun KryptoNavHost(
         }
 
         composable(
-            route = KryptoScreen.CorrespondenceDetailsScreen.route + "/{roomIndex}", arguments = listOf(
-                navArgument(name = "roomIndex") { type = NavType.IntType; defaultValue = 0 })
+            route = KryptoScreen.CorrespondenceDetailsScreen.route + "/{correspondenceId}", arguments = listOf(
+                navArgument(name = "correspondenceId") { type = NavType.IntType; defaultValue = 0 })
         ) { backStackEntry ->
             CorrespondenceDetailsScreen(
                 viewModel = viewModel,
-                correspondenceId = backStackEntry.arguments?.getInt("roomIndex") ?: 0
+                correspondenceId = backStackEntry.arguments?.getInt("correspondenceId") ?: 0
             )
         }
     }
