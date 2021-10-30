@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vitassalvantes.krypto.KryptoViewModel
 import com.vitassalvantes.krypto.R
-import com.vitassalvantes.krypto.ciphers.CiphersInfo
+import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
 import com.vitassalvantes.krypto.ciphers.KryptoCipher
 import com.vitassalvantes.krypto.data.Correspondence
 
@@ -35,7 +35,7 @@ fun CorrespondenceDetailsScreen(viewModel: KryptoViewModel, correspondenceId: In
 
     val currentCorrespondence =
         viewModel.getCorrespondenceById(id = correspondenceId)
-    val currentCipher = CiphersInfo.getCipher(currentCorrespondence.cipherName)
+    val currentCipher = listOfAllCiphers[currentCorrespondence.cipherIndex]
 
     CorrespondenceDetailsScreenContent(
         currentCorrespondence = currentCorrespondence,
@@ -127,11 +127,11 @@ fun CorrespondenceDetailsScreenContent(
 fun PreviewCorrespondenceDetailsScreen() {
     val testCorrespondence = Correspondence(
         correspondenceName = "TestCorrespondence",
-        cipherName = R.string.caesar_cipher_name,
+        cipherIndex = R.string.caesar_cipher_name,
         key = "TestCorrespondence"
     )
 
-    val testCipher = CiphersInfo.listOfAllCiphers[0]
+    val testCipher = listOfAllCiphers[0]
 
     CorrespondenceDetailsScreenContent(currentCorrespondence = testCorrespondence, testCipher)
 }

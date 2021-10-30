@@ -18,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -30,9 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import com.vitassalvantes.krypto.KryptoViewModel
 import com.vitassalvantes.krypto.R
 import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
-import com.vitassalvantes.krypto.KryptoViewModel
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 
 /**
@@ -41,7 +40,7 @@ import com.vitassalvantes.krypto.navigation.KryptoScreen
 @Composable
 fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: NavHostController) {
     // List with names of all ciphers
-    val namesOfAllCiphers = listOfAllCiphers.map { it.name }
+    val namesOfAllCiphers = listOfAllCiphers.map { stringResource(id = it.name) }
 
     // Context for Toast
     val context = LocalContext.current
@@ -49,9 +48,9 @@ fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: N
     CreatingNewCorrespondenceScreenContent(
         namesOfAllCiphers = namesOfAllCiphers,
         onCreateButtonClick = { inputCorrespondenceName, inputKey, selectedCipherName ->
-            if (viewModel.createNewCorrespondence(
+            if (viewModel.addNewCorrespondence(
                     correspondenceName = inputCorrespondenceName,
-                    cipherName = selectedCipherName,
+                    cipherIndex = namesOfAllCiphers.indexOf(selectedCipherName),
                     key = inputKey,
                     context = context
                 )
@@ -83,8 +82,8 @@ fun CreatingNewCorrespondenceScreen(viewModel: KryptoViewModel, navController: N
  */
 @Composable
 fun CreatingNewCorrespondenceScreenContent(
-    namesOfAllCiphers: List<Int>,
-    onCreateButtonClick: (inputCorrespondenceName: String, inputKey: String, selectedCipherName: Int) -> Unit
+    namesOfAllCiphers: List<String>,
+    onCreateButtonClick: (inputCorrespondenceName: String, inputKey: String, selectedCipherName: String) -> Unit
 ) {
     Column(
         Modifier
@@ -94,37 +93,34 @@ fun CreatingNewCorrespondenceScreenContent(
     ) {
         Text(text = stringResource(R.string.cipher), style = MaterialTheme.typography.h5)
 
-        //Radio buttons state
+        // Radio buttons state
         val (selectedCipherName, onCipherNameSelected) = rememberSaveable {
-            mutableStateOf(
-                namesOfAllCiphers[0]
-            )
+            mutableStateOf(namesOfAllCiphers[0])
         }
 
         // Column with radio buttons to choose a cipher
         Column(
-            Modifier
-                .selectableGroup(),
+            Modifier.selectableGroup(),
             Arrangement.SpaceEvenly
         ) {
-            namesOfAllCiphers.forEach { nameOfCipher ->
+            namesOfAllCiphers.forEach { cipherName ->
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .selectable(
-                            selected = (nameOfCipher == selectedCipherName),
-                            onClick = { onCipherNameSelected(nameOfCipher) },
+                            selected = (cipherName == selectedCipherName),
+                            onClick = { onCipherNameSelected(cipherName) },
                             role = Role.RadioButton
                         )
                         .padding(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (nameOfCipher == selectedCipherName),
+                        selected = (cipherName == selectedCipherName),
                         onClick = null
                     ) // null recommended for accessibility with screenreaders
                     Text(
-                        text = stringResource(nameOfCipher),
+                        text = cipherName,
                         Modifier.padding(start = 4.dp)
                     )
                 }
@@ -138,8 +134,8 @@ fun CreatingNewCorrespondenceScreenContent(
         OutlinedTextField(
             value = inputCorrespondenceName,
             onValueChange = { inputCorrespondenceName = it },
-            label = { Text("Name of Correspondence") },
-            leadingIcon = { Icon(Icons.Default.Edit, contentDescription = "Icon Label") },
+            label = { Text(stringResource(R.string.name_of_correspondence)) },
+            leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -155,8 +151,8 @@ fun CreatingNewCorrespondenceScreenContent(
         OutlinedTextField(
             value = inputKey,
             onValueChange = { inputKey = it },
-            label = { Text("Key") },
-            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = "Icon Key") },
+            label = { Text(stringResource(R.string.key)) },
+            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
             trailingIcon = {
                 val image = if (inputKeyVisibility) {
                     Icons.Filled.Visibility
@@ -166,7 +162,7 @@ fun CreatingNewCorrespondenceScreenContent(
                 IconButton(onClick = {
                     inputKeyVisibility = !inputKeyVisibility
                 }) {
-                    Icon(imageVector = image, "Visibility")
+                    Icon(imageVector = image, contentDescription = null)
                 }
             },
             visualTransformation = if (inputKeyVisibility) VisualTransformation.None else PasswordVisualTransformation(),
@@ -185,7 +181,7 @@ fun CreatingNewCorrespondenceScreenContent(
             },
             Modifier
                 .padding(top = 64.dp)
-                .align(CenterHorizontally)
+                .align(Alignment.CenterHorizontally)
         ) {
             Text(text = "CREATE ${inputCorrespondenceName.uppercase()}")
         }
@@ -198,9 +194,8 @@ fun CreatingNewCorrespondenceScreenContent(
 )
 @Composable
 fun PreviewCreatingNewCorrespondenceScreen() {
-    val namesOfAllCiphers = listOfAllCiphers.map { it.name }
     CreatingNewCorrespondenceScreenContent(
-        namesOfAllCiphers = namesOfAllCiphers,
-        onCreateButtonClick = { _, _, _ -> }
+        onCreateButtonClick = { _, _, _ -> },
+        namesOfAllCiphers = listOf("First", "Second", "Third")
     )
 }

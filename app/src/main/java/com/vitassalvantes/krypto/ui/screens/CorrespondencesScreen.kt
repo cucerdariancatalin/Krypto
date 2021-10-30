@@ -16,13 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.vitassalvantes.krypto.R
-import com.vitassalvantes.krypto.ciphers.CiphersInfo
-import com.vitassalvantes.krypto.data.Correspondence
 import com.vitassalvantes.krypto.KryptoViewModel
+import com.vitassalvantes.krypto.R
+import com.vitassalvantes.krypto.ciphers.CiphersInfo.listOfAllCiphers
+import com.vitassalvantes.krypto.data.Correspondence
 import com.vitassalvantes.krypto.navigation.KryptoScreen
 import com.vitassalvantes.krypto.ui.components.KryptoCard
 import com.vitassalvantes.krypto.ui.components.KryptoDialog
+import com.vitassalvantes.krypto.ui.components.Settings
 
 /**
  * Screen with a list of created correspondences.
@@ -93,7 +94,7 @@ fun CorrespondencesScreenContent(
         val correspondenceInfo = stringResource(
             id = R.string.correspondence_info,
             pressedCorrespondence.correspondenceName,
-            stringResource(id = pressedCorrespondence.cipherName),
+            stringResource(id = listOfAllCiphers[pressedCorrespondence.cipherIndex].name),
             pressedCorrespondence.key
         )
         // Text with the name of the pressed correspondence for the Toast
@@ -129,7 +130,7 @@ fun CorrespondencesScreenContent(
         items(listOfAllCorrespondences) { correspondence ->
             KryptoCard(
                 cardName = correspondence.correspondenceName,
-                cardIcon = CiphersInfo.getCipher(correspondence.cipherName).icon,
+                cardIcon = listOfAllCiphers[correspondence.cipherIndex].icon,
                 onClickListener = { onCardClick(correspondence) },
                 onLongClickListener = {
                     // Call the dialog
@@ -149,7 +150,7 @@ fun CorrespondencesScreenContent(
 fun PreviewCorrespondencesScreen() {
     val testCorrespondence = Correspondence(
         correspondenceName = "TestCorrespondence",
-        cipherName = R.string.caesar_cipher_name,
+        cipherIndex = 0,
         key = "TestCorrespondence"
     )
 
