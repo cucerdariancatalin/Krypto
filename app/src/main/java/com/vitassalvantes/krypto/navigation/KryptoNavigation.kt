@@ -112,7 +112,7 @@ fun KryptoFloatingActionButton(navController: NavHostController) {
         },
         shape = Shapes.small
     ) {
-        Icon(Icons.Filled.Add, stringResource(id = R.string.creating_a_new_room))
+        Icon(Icons.Filled.Add, stringResource(id = R.string.create_a_new_correspondence))
     }
 }
 

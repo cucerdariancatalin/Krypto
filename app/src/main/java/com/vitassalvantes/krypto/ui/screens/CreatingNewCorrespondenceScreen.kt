@@ -183,7 +183,12 @@ fun CreatingNewCorrespondenceScreenContent(
                 .padding(top = 64.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Text(text = "CREATE ${inputCorrespondenceName.uppercase()}")
+            Text(
+                text = stringResource(
+                    id = R.string.create_correspondence,
+                    inputCorrespondenceName.uppercase()
+                )
+            )
         }
     }
 }

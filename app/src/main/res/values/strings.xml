@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Krypto</string>
     <string name="ciphers">Ciphers</string>
-    <string name="creating_a_new_room">Creating a new room</string>
+    <string name="create_a_new_correspondence">Creating a new correspondence</string>
     <string name="cipher_details_screen">Cipher details screen</string>
     <string name="send_message">Send message</string>
     <string name="delete_this_correspondence">Delete this correspondence?</string>
@@ -17,4 +17,7 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="decryption">Decryption</string>
     <string name="encryption">Encryption</string>
+    <string name="key">Key</string>
+    <string name="name_of_correspondence">Name of Correspondence</string>
+    <string name="create_correspondence">CREATE %1$s</string>
 </resources>
