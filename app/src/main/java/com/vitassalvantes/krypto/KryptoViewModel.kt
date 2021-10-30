@@ -2,7 +2,6 @@ package com.vitassalvantes.krypto
 
 import android.content.Context
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -57,17 +56,41 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
      */
     fun addNewCorrespondence(
         correspondenceName: String,
-        cipherName: Int,
-        key: String
-    ) {
-        addCorrespondence(
-            Correspondence(
-                correspondenceName = correspondenceName,
-                cipherName = cipherName,
-                key = key
-            )
-        )
-    }
+        cipherIndex: Int,
+        key: String,
+        context: Context
+    ) : Boolean {
+            // If the input fields are not empty, then the button will work,
+            // else the user will see Toast with tip
+            if (correspondenceName.isNotBlank() && key.isNotBlank()) {
+
+                // If the correspondence name already exists, the user will see Toast with tip
+                if (listOfAllCorrespondences.value.find { it.correspondenceName == correspondenceName } != null) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.this_name_is_used),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return false
+                } else {
+                    addCorrespondence(
+                        Correspondence(
+                            correspondenceName = correspondenceName,
+                            cipherIndex = cipherIndex,
+                            key = key
+                        )
+                    )
+                }
+            } else {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.input_fields_are_empty),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
+            return true
+        }
 
     /**
      * Delete correspondence from the database
@@ -81,47 +104,6 @@ class KryptoViewModel(private val correspondenceDao: CorrespondenceDao) : ViewMo
      */
     fun getCorrespondenceById(id: Int): Correspondence =
         listOfAllCorrespondences.value.find { it.id == id }!! // TODO: 24.10.2021 exception
-
-    /**
-     * Create new custom correspondence
-     *
-     * @return true if operation is successful
-     */
-    fun createNewCorrespondence(
-        correspondenceName: String,
-        key: String,
-        @StringRes cipherName: Int,
-        context: Context
-    ): Boolean {
-        // If the input fields are not empty, then the button will work,
-        // else the user will see Toast with tip
-        if (correspondenceName.isNotBlank() && key.isNotBlank()) {
-
-            // If the correspondence name already exists, the user will see Toast with tip
-            if (listOfAllCorrespondences.value.find { it.correspondenceName == correspondenceName } != null) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.this_name_is_used),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return false
-            } else {
-                addNewCorrespondence(
-                    correspondenceName = correspondenceName,
-                    cipherName = cipherName,
-                    key = key
-                )
-            }
-        } else {
-            Toast.makeText(
-                context,
-                context.getString(R.string.input_fields_are_empty),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        return true
-    }
 }
 
 /**
