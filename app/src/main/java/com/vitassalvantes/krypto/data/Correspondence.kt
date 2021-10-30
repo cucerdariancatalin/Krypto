@@ -10,8 +10,8 @@ data class Correspondence(
     val id: Int = 0,
     @ColumnInfo(name = "correspondence_name")
     val correspondenceName: String,
-    @ColumnInfo(name = "cipher_name")
-    val cipherName: Int,
+    @ColumnInfo(name = "cipher_index")
+    val cipherIndex: Int,
     @ColumnInfo(name = "key")
     val key: String
 )

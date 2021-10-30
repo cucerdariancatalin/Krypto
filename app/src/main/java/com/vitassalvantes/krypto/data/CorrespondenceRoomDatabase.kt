@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Correspondence::class], version = 1, exportSchema = false)
+@Database(entities = [Correspondence::class], version = 2, exportSchema = false)
 abstract class CorrespondenceRoomDatabase : RoomDatabase() {
 
     abstract fun correspondenceDao(): CorrespondenceDao
