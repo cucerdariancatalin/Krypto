@@ -1,7 +1,7 @@
 package com.vitassalvantes.krypto.ciphers
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * A cipher with a [name], [description] and methods to [encrypt] and [decrypt].
@@ -22,7 +22,7 @@ abstract class KryptoCipher(
     /**
      * Cipher vector icon. Used when displaying cipher information.
      */
-    val icon: ImageVector
+    @DrawableRes val icon: Int
 ) {
 
     /**
