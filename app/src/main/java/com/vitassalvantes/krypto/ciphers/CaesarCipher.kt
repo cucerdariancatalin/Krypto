@@ -1,8 +1,6 @@
 package com.vitassalvantes.krypto.ciphers
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
 import com.vitassalvantes.krypto.R
 
 /**
@@ -11,7 +9,8 @@ import com.vitassalvantes.krypto.R
 class CaesarCipher(
     name: Int = R.string.caesar_cipher_name,
     description: Int = R.string.caesar_cipher_description,
-    icon: ImageVector = Icons.Filled.Edit
+    @DrawableRes
+    icon: Int = R.drawable.caesar_cipher_icon
 ) : KryptoCipher(name = name, description = description, icon = icon) {
 
     override fun encrypt(message: String, key: String): String {
