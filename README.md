@@ -2,6 +2,9 @@
 
 This is an app for Android to en- or decrypt messages.
 
+Data privacy issues are of concern to users around the world. I propose a simple solution to keep
+your correspondence private.
+
 [![current version](https://img.shields.io/badge/current_version-1.0-green)](#Krypto)
 
 ## Table of contents
@@ -16,7 +19,14 @@ This is an app for Android to en- or decrypt messages.
 
 ## How does it work
 
-Coming soon...
+The user creates correspondence – an object containing an encryption method, a key and the ability
+to automatically copy messages to the clipboard. After that, the user can paste the copied text into
+any messenger.
+
+In order for the recipient to be able to decrypt the sent message, he needs to know the key. It’s
+recommended that you report the key in person.
+
+If you are interested in how ciphers work, you can find out in this app.
 
 ## Screenshots
 
@@ -82,9 +92,11 @@ After removing the correspondence:
 
 - Development was carried out in [Android Studio](https://developer.android.com/studio/).
 
-- Room
+- [The Room persistence library](https://developer.android.com/jetpack/androidx/releases/room) was
+  used to interact with a database.
 
-- Jetpack Compose
+- [Jetpack Compose toolkit](https://developer.android.com/jetpack/compose) was used for building
+  native UI.
 
 - [Figma](https://www.figma.com/) was used to prototype the user interface.
 
@@ -96,11 +108,17 @@ After removing the correspondence:
 
 Development of the project began on **Mar 10, 2021**.
 
+Main problems:
+
+- Scary UI
+
+- Little of ciphers
+
+- Insecure ciphers
+
 Currently implemented ciphers:
 
-- [Atbash cipher](https://github.com/VitasSalvantes/Simple-Examples#atbashcipher)
 - [Caesar cipher](https://github.com/VitasSalvantes/Simple-Examples#caesarcipher)
-- [Code word cipher](https://github.com/VitasSalvantes/Simple-Examples#codewordcipher)
 
 *Since I am developing this project mainly alone, I see no reason to
 use [Trello](https://trello.com/).*
