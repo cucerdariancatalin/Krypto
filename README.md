@@ -5,7 +5,9 @@ This is an app for Android to en- or decrypt messages.
 Data privacy issues are of concern to users around the world. I propose a simple solution to keep
 your correspondence private.
 
-[![current version](https://img.shields.io/badge/current_version-1.0-green)](#Krypto)
+[![current version](https://img.shields.io/badge/current_version-2.0-green)](#Krypto)
+[![GitHub license](https://img.shields.io/github/license/VitasSalvantes/Krypto)](https://github.com/VitasSalvantes/Krypto/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/VitasSalvantes/Krypto)](https://github.com/VitasSalvantes/Krypto/issues)
 
 ## Table of contents
 
@@ -30,7 +32,7 @@ If you are interested in how ciphers work, you can find out in this app.
 
 ## Screenshots
 
-*All screenshots are relevant for version 1.0*
+*All screenshots are relevant for version 2.0*
 
 Screen of all correspondences (home screen):
 
@@ -138,4 +140,5 @@ See more on [WakaTime](https://wakatime.com/@VitasSalvantes/projects/xemqmsfaet)
 
 ## How to contribute
 
-Coming soon...
+If you want to take part in the development of this project, please
+read [this](/CONTRIBUTING.md) file.
