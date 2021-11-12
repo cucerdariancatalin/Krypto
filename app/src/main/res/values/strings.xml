@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Krypto</string>
+    <string name="ciphers">Ciphers</string>
+    <string name="create_a_new_correspondence">Creating a new correspondence</string>
+    <string name="cipher_details_screen">Cipher details screen</string>
+    <string name="send_message">Send message</string>
+    <string name="delete_this_correspondence">Delete this correspondence?</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="correspondence_info">Name: %1$s\nCipher: %2$s\nKey: %3$s</string>
+    <string name="deleted_correspondence">Deleted %1$s</string>
+    <string name="correspondences">Correspondences</string>
+    <string name="input_fields_are_empty">Input fields are empty!</string>
+    <string name="this_name_is_used">This name is used!</string>
+    <string name="cipher">Cipher</string>
+    <string name="message">Message</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="decryption">Decryption</string>
+    <string name="encryption">Encryption</string>
+    <string name="key">Key</string>
+    <string name="name_of_correspondence">Name of Correspondence</string>
+    <string name="create_correspondence">CREATE %1$s</string>
+</resources>
