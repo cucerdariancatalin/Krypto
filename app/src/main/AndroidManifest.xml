@@ -3,17 +3,18 @@
     package="com.vitassalvantes.krypto">
 
     <application
+        android:name=".KryptoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Krypto">
-        <activity android:name=".KeyInputActivity" />
         <activity
-            android:name=".ReceiveMessageActivity"
-            android:label="@string/receive_message_activity" />
-        <activity android:name=".CreateMessageActivity">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Krypto.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
