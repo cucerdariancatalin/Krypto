@@ -108,6 +108,8 @@ After removing the correspondence:
 
 - [Microsoft To Do](https://todo.microsoft.com/tasks/) was used to schedule tasks.
 
+- [Flaticon](https://www.flaticon.com/free-icons/security) was used to create the logo.
+
 ## Development progress
 
 Development of the project began on **Mar 10, 2021**.
