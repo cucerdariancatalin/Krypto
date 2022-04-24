@@ -1,5 +1,7 @@
 # Krypto
 
+![logo](res/img/logo.png)
+
 This is an app for Android to en- or decrypt messages.
 
 Data privacy issues are of concern to users around the world. I propose a simple solution to keep
